@@ -1,0 +1,56 @@
+/*tomorrow.wxss*/
+.container {
+  border-bottom: 1px solid #cccccc;
+  padding-left: 20rpx;
+  display: flex;
+  flex-direction: row;
+  height: 150rpx;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.timeBox {
+  margin-bottom: 10rpx;
+  padding-top: 20rpx;
+}
+.time {
+  display: inline-block;
+}
+picker {
+  display: inline-block;
+}
+input {
+  margin-bottom: 20rpx;
+}
+.left {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  width: 100%;
+  background: #fff;
+}
+.right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 4;
+}
+.add {
+  display: inline-block;
+  height: 150rpx;
+  width: 150rpx;
+  line-height: 150rpx;
+  background: #90CFF0;
+  color: #fff;
+  text-align: center;
+}
+.del {
+  display: inline-block;
+  height: 150rpx;
+  width: 150rpx;
+  line-height: 150rpx;
+  background: #e7413e;
+  color: #fff;
+  text-align: center;
+}

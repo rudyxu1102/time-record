@@ -1,0 +1,26 @@
+<!--index.wxml-->
+<view>
+  <view wx:for="{{list}}">
+    <template is="record" data="{{item, index}}"></template>
+  </view>
+</view>
+
+<template name="record">
+<view class="container">
+  <view class="left" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" style="{item.leftStyle}" data-index="{{index}}">
+    <view class="timeBox">
+      <picker mode="time" value="{{item.timeStart}}" start="06:00" end="13:00" bindchange="bindTimeChange" data-index="{{index}}" data-time="timeStart">
+        <view class="time">{{item.timeStart}}</view>
+      </picker> —
+      <picker mode="time" value="{{item.timeEnd}}" start="06:00" end="13:00" bindchange="bindTimeChange" data-index="{{index}}" data-time="timeEnd">
+        <view class="time">{{item.timeEnd}}</view>
+      </picker>
+    </view>
+    <input type="text" placeholder="{{item.inputValue}}"/>
+  </view>
+  <view class="right">
+    <view class="add">添加</view>
+    <view class="del">删除</view>
+  </view>
+</view>
+</template>

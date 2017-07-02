@@ -1,12 +1,37 @@
 {
   "pages":[
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/tomorrow/tomorrow",
+    "pages/today/today",
+    "pages/setting/setting"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
-  }
+    "navigationBarBackgroundColor": "#90CFF0",
+    "navigationBarTitleText": "明天的时间安排",
+    "navigationBarTextStyle":"#fff"
+  },
+    "tabBar": {
+      "list": [
+        {
+          "pagePath": "pages/tomorrow/tomorrow",
+          "text": "明天",
+          "iconPath": "image/moon.png",
+          "selectedIconPath": "image/moon_hl.png"
+        },
+        {
+          "pagePath": "pages/today/today",
+          "text": "今天",
+          "iconPath": "image/sun.png",
+          "selectedIconPath": "image/sun_hl.png"
+        },
+        {
+          "pagePath": "pages/setting/setting",
+          "text": "设置",
+          "iconPath": "image/setting.png",
+          "selectedIconPath": "image/setting_hl.png"
+        }
+      ],
+      "color": "#9d9d9d",
+      "selectedColor": "#90CFF0"
+    }
 }
