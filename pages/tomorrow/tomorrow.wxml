@@ -1,13 +1,14 @@
-<!--index.wxml-->
+<!--tomorrow.wxml-->
 <view>
-  <view wx:for="{{list}}">
-    <template is="record" data="{{item, index}}"></template>
+  <view wx:for="{{list}}" wx:key="{{index}}">
+    <template is="record" data="{{item, index, starUrl, starHlUrl}}"></template>
   </view>
+    <button bindtap="confirmPlan" class="confirm" hover-class="confirm-hover"><text>确认计划</text></button>
 </view>
 
 <template name="record">
 <view class="container">
-  <view class="left" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" style="{item.leftStyle}" data-index="{{index}}">
+  <view class="left" style="{{item.leftStyle}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}">
     <view class="timeBox">
       <picker mode="time" value="{{item.timeStart}}" start="06:00" end="13:00" bindchange="bindTimeChange" data-index="{{index}}" data-time="timeStart">
         <view class="time">{{item.timeStart}}</view>
@@ -16,11 +17,14 @@
         <view class="time">{{item.timeEnd}}</view>
       </picker>
     </view>
-    <input type="text" placeholder="{{item.inputValue}}"/>
+    <input type="text" placeholder="{{item.placeholder}}" bindfocus="bindfocus" bindblur="bindblur" data-index="{{index}}" bindinput="bindInput" value="{{item.value}}"/>
+    <image src="{{item.stars >= 1 ? starHlUrl : starUrl}}" class="star_first" bindtap="oneStar" data-index="{{index}}"></image>
+    <image src="{{item.stars >= 2 ? starHlUrl : starUrl}}" class="star_second" bindtap="twoStar" data-index="{{index}}"></image>
+    <image src="{{item.stars >= 3 ? starHlUrl : starUrl}}" class="star_third" bindtap="threeStar" data-index="{{index}}"></image>
   </view>
   <view class="right">
-    <view class="add">添加</view>
-    <view class="del">删除</view>
+    <view class="add" bindtap="addRecord" data-index="{{index}}">添加</view>
+    <view class="del" bindtap="delRecord" data-index="{{index}}">删除</view>
   </view>
 </view>
 </template>

@@ -1,1 +1,8 @@
 /* pages/today/today.wxss */
+@import "../tomorrow/tomorrow.wxss";
+.noList {
+  font-size: 40rpx;
+  text-align: center;
+  color: #9d9d9d;
+  margin-top: 300rpx;
+}

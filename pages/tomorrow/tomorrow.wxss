@@ -1,6 +1,5 @@
 /*tomorrow.wxss*/
 .container {
-  border-bottom: 1px solid #cccccc;
   padding-left: 20rpx;
   display: flex;
   flex-direction: row;
@@ -8,11 +7,13 @@
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+  border-bottom: 1px solid #cccccc;
 }
 
 .timeBox {
-  margin-bottom: 10rpx;
+  margin-bottom: 20rpx;
   padding-top: 20rpx;
+  display: inline-block;
 }
 .time {
   display: inline-block;
@@ -21,7 +22,9 @@ picker {
   display: inline-block;
 }
 input {
-  margin-bottom: 20rpx;
+  font-size: 40rpx;
+  height: 45rpx;
+  width: 80%;
 }
 .left {
   position: absolute;
@@ -29,6 +32,8 @@ input {
   z-index: 5;
   width: 100%;
   background: #fff;
+  height: 100%;
+  transition: left 0.2s ease-in-out;
 }
 .right {
   position: absolute;
@@ -38,7 +43,7 @@ input {
 }
 .add {
   display: inline-block;
-  height: 150rpx;
+  height: 100%;
   width: 150rpx;
   line-height: 150rpx;
   background: #90CFF0;
@@ -47,10 +52,55 @@ input {
 }
 .del {
   display: inline-block;
-  height: 150rpx;
+  height: 100%;
   width: 150rpx;
+  padding-bottom: 100%;
   line-height: 150rpx;
   background: #e7413e;
   color: #fff;
   text-align: center;
 }
+image {
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  top: 20rpx;
+}
+.star_first {
+  right: 180rpx;
+}
+.star_second {
+  right: 110rpx;
+}
+.star_third {
+  right: 40rpx;
+}
+.confirm {
+  margin: 20rpx;
+  background-color: #90CFF0;
+  color: #fff;  
+  font-size: 40rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+.confirm text {
+  position: relative;
+  right: 0;
+  transition: 0.5s;
+}
+text:after {
+  content: '\00bb';
+  font-size: 60rpx;
+  position: relative;
+  left: 10rpx;
+  opacity: 0;
+  transition: 0.5s;
+}
+.confirm-hover text:after{
+  left: 50rpx;
+  opacity: 1;
+}
+.confirm-hover text {
+  right: 20rpx;
+}
+
