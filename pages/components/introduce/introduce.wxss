@@ -1,0 +1,12 @@
+/* pages/components/introduce/introduce.wxss */
+.container {
+  padding: 30rpx;
+}
+.title {
+  border-bottom: 1px solid #E6E7E7;
+  padding-bottom: 10rpx;
+  margin-bottom: 30rpx;
+}
+.info {
+  margin-bottom: 50rpx;
+}

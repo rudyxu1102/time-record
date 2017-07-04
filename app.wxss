@@ -1,4 +1,5 @@
 /**app.wxss**/
-/*page {
-  padding-top: 10rpx;
-}*/
+page {
+  height: 100%;
+  font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+}

@@ -2,7 +2,6 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {}
   },
   onLoad: function () {
@@ -14,6 +13,39 @@ Page({
       that.setData({
         userInfo: userInfo
       })
+    })
+  },
+  addTemplate: function ()　{
+    var that = this;
+    var temList = ['工作日', '休息日', '添加新模板'];
+    wx.showActionSheet({
+      itemList: temList,
+      success: function (res) {
+        var length = temList.length;
+        if(res.tapIndex === length - 1) {
+          wx.navigateTo({
+            url: '../components/template/template'
+          })
+        }
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
+    })
+  },
+  introduce: function () {
+    wx.navigateTo({
+      url: '../components/introduce/introduce'
+    })
+  },
+  showRank: function () {
+    wx.navigateTo({
+      url: '../components/rank/rank'
+    })
+  },
+  makeSugar: function () {
+    wx.navigateTo({
+      url: '../components/sugar/sugar'
     })
   }
 })

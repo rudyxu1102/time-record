@@ -1,9 +1,15 @@
 <!--tomorrow.wxml-->
 <view>
+  <view class="title">
+  <text>明天</text>
+  </view>
   <view wx:for="{{list}}" wx:key="{{index}}">
     <template is="record" data="{{item, index, starUrl, starHlUrl}}"></template>
   </view>
+  <view class="btnBox">
+    <button bindtap="selectTem" class="confirm" hover-class="confirm-hover"><text>选择模板</text></button>
     <button bindtap="confirmPlan" class="confirm" hover-class="confirm-hover"><text>确认计划</text></button>
+    </view>
 </view>
 
 <template name="record">

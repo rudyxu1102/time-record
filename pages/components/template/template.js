@@ -1,11 +1,13 @@
-//tomorrow.js
-//获取应用实例
-var util = require('../../utils/util.js');
+// pages/components/template/template.js
+var util = require('../../../utils/util.js');
 Page({
+  /**
+   * 页面的初始数据
+   */
   data: {
     btnWidth: 310,
-    starUrl: '../../image/star.png',
-    starHlUrl: '../../image/star_hl.png',
+    starUrl: '../../../image/star.png',
+    starHlUrl: '../../../image/star_hl.png',
     list: [
       {
         "timeStart": "07:00",
@@ -40,19 +42,6 @@ Page({
         "stars": 0
       }
     ]
-  },
-  onLoad: function () {
-    var that = this;
-    wx.getStorage({
-      key: 'tomorrow',
-      success: function (res) {
-        if (res.data) {
-          that.setData({
-            list: res.data
-          })
-        }
-      }
-    })
   },
   touchS: function (e) {
     if (e.touches.length == 1) {
@@ -154,13 +143,13 @@ Page({
     })
   },
   bindInput: util.debounce(function (e) {
-      var index = e.target.dataset.index;
-      var list = this.data.list;
-      list[index].value = e.detail.value
-      this.setData({
-        list: list
-      })
-      console.log(this.data.list)
+    var index = e.target.dataset.index;
+    var list = this.data.list;
+    list[index].value = e.detail.value
+    this.setData({
+      list: list
+    })
+    console.log(this.data.list)
   }, 500),
   oneStar: function (e) {
     var index = e.target.dataset.index;
@@ -169,7 +158,7 @@ Page({
       list[index].stars = 0;
     } else {
       list[index].stars = 1;
-    }    
+    }
     this.setData({
       list: list
     })
@@ -190,37 +179,11 @@ Page({
       list: list
     })
   },
-  confirmPlan: function () {
-    // wx.showLoading({
-    //   title: 'haha',
-    // })
-    wx.setStorage({
-      key: "tomorrow",
-      data: this.data.list
-    })
-    wx.setStorage({
-      key: 'today',
-      data: this.data.list,
-    })
+  confirmAdd: function () {
     wx.showToast({
       title: '添加成功',
       icon: 'success',
       duration: 2000
-    })
-    // wx.hideLoading();
-  },
-  selectTem: function () {
-    var that = this;
-    var temList = ['工作日', '休息日', '添加新模板'];
-    wx.showActionSheet({
-      itemList: temList,
-      success: function (res) {
-        var length = temList.length;
-
-      },
-      fail: function (res) {
-        console.log(res.errMsg)
-      }
     })
   }
 })

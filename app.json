@@ -2,12 +2,16 @@
   "pages":[
     "pages/tomorrow/tomorrow",
     "pages/today/today",
-    "pages/setting/setting"
+    "pages/setting/setting",
+    "pages/components/template/template",
+    "pages/components/introduce/introduce",
+    "pages/components/rank/rank",
+    "pages/components/sugar/sugar"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#90CFF0",
-    "navigationBarTitleText": "明天的时间安排",
+    "navigationBarTitleText": "时间记录",
     "navigationBarTextStyle":"#fff"
   },
     "tabBar": {

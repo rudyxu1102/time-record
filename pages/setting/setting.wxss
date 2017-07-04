@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 400rpx;
 }
 
 .userinfo-avatar {
@@ -16,16 +18,42 @@
   color: #aaa;
 }
 
-.usermotto {
-  margin-top: 200px;
-}
-
 .container {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
   box-sizing: border-box;
+  background: #F9F9FB;
 } 
+
+.option {
+  color: #3D3D3D;
+  padding: 20rpx 150rpx;
+  background: #fff;
+  border-top: 1px solid #E6E7E7;
+  border-bottom: 1px solid #E6E7E7;
+  font-size: 40rpx;
+  transition: 0.5s;
+  margin-bottom: 30rpx;
+  position: relative;
+}
+
+.option-hover {
+  background: #EBEBEB;
+  transition: 0.5s;
+}
+
+.iconPre {
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  top: 50%;
+  left: 50rpx;
+  margin-top: -30rpx;
+}
+.right {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  top: 50%;
+  right: 20rpx;
+  margin-top: -20rpx;
+}

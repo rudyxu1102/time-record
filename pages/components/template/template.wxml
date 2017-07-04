@@ -1,0 +1,11 @@
+<!--pages/components/template/template.wxml-->
+<view class="temName">
+<input type="text" placeholder="模板名称"/>
+</view>
+<import src="../../tomorrow/tomorrow.wxml"/>
+<view class="newTem">
+  <view wx:for="{{list}}" wx:key="{{index}}">
+    <template is="record" data="{{item, index, starUrl, starHlUrl}}"></template>
+  </view>
+    <button class="confirm" hover-class="confirm-hover" bindtap="confirmAdd"><text>确定</text></button>
+</view>

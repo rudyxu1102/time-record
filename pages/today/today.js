@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    btnWidth: 300,
+    btnWidth: 310,
     starUrl: '../../image/star.png',
     starHlUrl: '../../image/star_hl.png'
   },
@@ -16,6 +16,7 @@ Page({
    */
   onLoad: function () {
     var that = this;
+    wx.hideNavigationBarLoading();
     wx.getStorage({
       key: 'today',
       success: function (res) {
@@ -38,10 +39,10 @@ Page({
    */
   onShow: function () {
     var that = this;
+    wx.hideNavigationBarLoading();
     wx.getStorage({
-      key: 'tomorrow',
+      key: 'today',
       success: function (res) {
-        console.log(res.data);
         that.setData({
           list: res.data
         })
@@ -155,14 +156,6 @@ Page({
       list: list
     })
   },
-  bindblur: function (e) {
-    var index = e.target.dataset.index;
-    var list = this.data.list;
-    list[index].placeholder = '还没想好？🙃';
-    this.setData({
-      list: list
-    })
-  },
   addRecord: function (e) {
     var index = e.target.dataset.index;
     var list = this.data.list
@@ -174,7 +167,7 @@ Page({
     let item = {
       "timeStart": newStart,
       "timeEnd": newEnd,
-      "placeholder": "开启新的一天😈",
+      "placeholder": "开启新的一天",
       "leftStyle": ''
     }
     list.splice(index + 1, 0, item);
@@ -227,4 +220,10 @@ Page({
       list: list
     })
   }
+  // compareData: function () {
+  //   console.log(111)
+  //   wx.navigateTo({
+  //     url: 'test'
+  //   })
+  // }
 })

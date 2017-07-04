@@ -1,11 +1,14 @@
 <!--today.wxml-->
+  <view class="title">
+ <text>今天</text>
+  </view>
 <import src="../tomorrow/tomorrow.wxml"/>
 <view class="today">
   <block wx:if="{{list.length}}">
   <view wx:for="{{list}}" wx:key="{{index}}">
     <template is="record" data="{{item, index, starUrl, starHlUrl}}"></template>
   </view>
-    <button class="confirm" hover-class="confirm-hover"><text>生成图表</text></button>
+    <button class="confirm" hover-class="confirm-hover" bindtap="compareData"><text>生成图表</text></button>
   </block>
   <view class="noList" wx:if="{{!list.length}}">还未安排时间</view>
 </view>

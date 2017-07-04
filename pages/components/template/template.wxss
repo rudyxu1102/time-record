@@ -1,0 +1,10 @@
+/* pages/components/template/template.wxss */
+@import "../../tomorrow/tomorrow.wxss";
+.temName {
+    border-bottom: 1px solid #cccccc;
+    text-align: center;
+    padding: 30rpx;
+}
+.temName input {
+    font-size: 45rpx;
+}

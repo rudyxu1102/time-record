@@ -9,7 +9,17 @@
   box-sizing: border-box;
   border-bottom: 1px solid #cccccc;
 }
-
+.title {
+    text-align: center;
+    margin: 30rpx 0;
+    font-size: 45rpx;
+}
+.title text {
+    border-bottom: 1px double #cccccc;
+    padding-bottom: 10rpx;
+    text-align: center;
+    padding: 0 30rpx 10rpx;    
+}
 .timeBox {
   margin-bottom: 20rpx;
   padding-top: 20rpx;
@@ -21,7 +31,7 @@
 picker {
   display: inline-block;
 }
-input {
+.left input {
   font-size: 40rpx;
   height: 45rpx;
   width: 80%;
@@ -44,7 +54,7 @@ input {
 .add {
   display: inline-block;
   height: 100%;
-  width: 150rpx;
+  width: 160rpx;
   line-height: 150rpx;
   background: #90CFF0;
   color: #fff;
@@ -88,7 +98,7 @@ image {
   right: 0;
   transition: 0.5s;
 }
-text:after {
+.confirm text:after {
   content: '\00bb';
   font-size: 60rpx;
   position: relative;

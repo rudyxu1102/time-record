@@ -1,0 +1,15 @@
+<!--pages/components/introduce/introduce.wxml-->
+<view class="container">
+<view class="info">
+  <view class="title">1. 安排明天的计划</view>
+  <text class="content">在"明天"界面中，安排一天的时间规划，左滑可以添加或删除时间安排，时间范围可自行设定。</text>
+</view>
+<view class="info">
+  <view class="title">2. 重要程度评级</view>
+  <text class="content">在"明天"界面中，通过星星对每一个安排进行评级，星星颗数越多代表重要程度越高。星星的选择会影响到计划完成后的评分。</text>
+</view>
+<view class="info">
+  <view class="title">3. 记录今天的时间</view>
+  <text class="content">在"今天"界面中，需要手动进行时间记录，不必在规定的时间进行记录。</text>
+</view>
+</view>

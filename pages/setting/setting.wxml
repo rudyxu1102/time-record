@@ -4,7 +4,9 @@
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+    <view bindtap="makeSugar" class="option" hover-class="option-hover">
+    <image src="../../image/sugar.png" class="iconPre"></image>设置奖励<image src="../../image/right.png" class="right"></image></view>
+  <view bindtap="addTemplate" class="option" hover-class="option-hover"><image src="../../image/template.png" class="iconPre"></image>自定义模板<image src="../../image/right.png" class="right"></image></view>
+  <view bindtap="showRank" class="option" hover-class="option-hover"><image src="../../image/medal.png" class="iconPre"></image>查看排行榜<image src="../../image/right.png" class="right"></image></view>
+  <view bindtap="introduce" class="option" hover-class="option-hover"><image src="../../image/info.png" class="iconPre"></image>使用说明<image src="../../image/right.png" class="right"></image></view>
 </view>
