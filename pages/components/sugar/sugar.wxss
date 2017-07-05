@@ -1,6 +1,6 @@
 /* pages/components/sugar/sugar.wxss */
 .container {
-  height: 100%;
+  min-height: 100%;
   background: #F9F9FB;
 }
 .sugar {
@@ -54,7 +54,7 @@
   color: #9d9d9d;
   text-align: center;
   line-height: 32rpx;
-  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
 }
 .home {
   width: 32rpx;
