@@ -1,1 +1,63 @@
 /* pages/components/sugar/sugar.wxss */
+.container {
+  height: 100%;
+  background: #F9F9FB;
+}
+.sugar {
+  background: #fff;
+  margin: 30rpx;
+  padding: 20rpx 0 20rpx 200rpx;
+  border: 2px solid #E6E7E7;
+  border-radius: 10rpx;
+  position: relative;
+}
+.sugar input {
+  display: inline-block;
+  vertical-align: middle;
+  width: 30%;
+}
+
+.title {
+    text-align: center;
+    padding-top: 30rpx;    
+    margin-bottom: 30rpx;
+    font-size: 45rpx;
+}
+.title text {
+    padding-bottom: 10rpx;
+    text-align: center;
+    padding: 0 40rpx 10rpx;    
+}
+.present {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 50%;
+  left: 50rpx;
+  margin-top: -50rpx;
+}
+.add {
+  width: 100rpx;
+  height: 100rpx;
+  margin-left: 80%;
+}
+.sure {
+  margin: 50rpx 30rpx;
+  background-color: #90CFF0;
+  color: #fff;  
+  font-size: 40rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+.footer {
+  font-size: 32rpx;
+  color: #9d9d9d;
+  text-align: center;
+  line-height: 32rpx;
+  margin-bottom: 20rpx;
+}
+.home {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}

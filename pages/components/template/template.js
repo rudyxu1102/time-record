@@ -185,5 +185,10 @@ Page({
       icon: 'success',
       duration: 2000
     })
+  },
+  backHome: function () {
+    wx.switchTab({
+      url: '../../setting/setting'
+    })
   }
 })

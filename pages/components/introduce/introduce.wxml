@@ -10,6 +10,10 @@
 </view>
 <view class="info">
   <view class="title">3. 记录今天的时间</view>
-  <text class="content">在"今天"界面中，需要手动进行时间记录，不必在规定的时间进行记录。</text>
+  <text class="content">在"今天"界面中，需要手动进行时间记录，不必在规定的时间进行记录。"明天"界面中点击“确定计划”后，时间安排会同步到“今天”，以方便记录今天的时间。</text>
+</view>
+<view class="footer" >
+  <image src="../../../image/home.png" class="home"></image>
+  <text bindtap="backHome">回到首页</text>
 </view>
 </view>

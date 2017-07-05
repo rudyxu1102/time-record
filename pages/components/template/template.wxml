@@ -8,4 +8,8 @@
     <template is="record" data="{{item, index, starUrl, starHlUrl}}"></template>
   </view>
     <button class="confirm" hover-class="confirm-hover" bindtap="confirmAdd"><text>确定</text></button>
+  <view class="footer" >
+    <image src="../../../image/home.png" class="home"></image>
+  <text bindtap="backHome">回到首页</text>
+  </view>
 </view>

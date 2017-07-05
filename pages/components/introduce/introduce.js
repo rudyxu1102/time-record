@@ -62,5 +62,10 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  backHome: function () {
+    wx.switchTab({
+      url: '../../setting/setting'
+    })
   }
 })

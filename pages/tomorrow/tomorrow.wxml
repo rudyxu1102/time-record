@@ -1,4 +1,5 @@
 <!--tomorrow.wxml-->
+<scroll-view bindscroll="scroll" class="scrollBox" scroll-y="{{scrollFlag}}" scroll-top="{{scrollTop}}" scroll-with-animation="true">
 <view>
   <view class="title">
   <text>明天</text>
@@ -11,6 +12,7 @@
     <button bindtap="confirmPlan" class="confirm" hover-class="confirm-hover"><text>确认计划</text></button>
     </view>
 </view>
+</scroll-view>
 
 <template name="record">
 <view class="container">

@@ -8,3 +8,18 @@
 .temName input {
     font-size: 45rpx;
 }
+.confirm {
+  margin: 30rpx;
+}
+.footer {
+  font-size: 32rpx;
+  color: #9d9d9d;
+  text-align: center;
+  line-height: 32rpx;
+  margin-bottom: 20rpx;
+}
+.home {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}

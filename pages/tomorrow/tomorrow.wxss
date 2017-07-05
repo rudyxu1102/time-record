@@ -9,16 +9,20 @@
   box-sizing: border-box;
   border-bottom: 1px solid #cccccc;
 }
+.scrollBox {
+  height: 100%;
+}
 .title {
     text-align: center;
-    margin: 30rpx 0;
+    padding-top: 30rpx;    
+    margin-bottom: 30rpx;
     font-size: 45rpx;
 }
 .title text {
-    border-bottom: 1px double #cccccc;
+    border-bottom: 4px double #cccccc;
     padding-bottom: 10rpx;
     text-align: center;
-    padding: 0 30rpx 10rpx;    
+    padding: 0 40rpx 10rpx;    
 }
 .timeBox {
   margin-bottom: 20rpx;
@@ -70,7 +74,7 @@ picker {
   color: #fff;
   text-align: center;
 }
-image {
+.container image {
   width: 50rpx;
   height: 50rpx;
   position: absolute;
@@ -85,27 +89,19 @@ image {
 .star_third {
   right: 40rpx;
 }
+.btnBox {
+  display: flex;
+  justify-content: space-around;
+}
 .confirm {
-  margin: 20rpx;
+  margin: 50rpx 0;
   background-color: #90CFF0;
   color: #fff;  
   font-size: 40rpx;
   height: 100rpx;
   line-height: 100rpx;
 }
-.confirm text {
-  position: relative;
-  right: 0;
-  transition: 0.5s;
-}
-.confirm text:after {
-  content: '\00bb';
-  font-size: 60rpx;
-  position: relative;
-  left: 10rpx;
-  opacity: 0;
-  transition: 0.5s;
-}
+
 .confirm-hover text:after{
   left: 50rpx;
   opacity: 1;

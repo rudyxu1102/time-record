@@ -1,4 +1,30 @@
 <!--pages/components/sugar/sugar.wxml-->
 <view class="container">
-
+  <view wx:for="{{sugars}}" wx:key="{{index}}">
+   <template is="sugar" data="{{item}}"></template>
+  </view>
+  <image src="../../../image/add.png" class="add" bindtap="addSugar" wx:if="{{sugars.length < 3}}"></image>
+  <button class="sure">确定</button>
+  <view class="footer" >
+    <image src="../../../image/home.png" class="home"></image>
+    <text bindtap="backHome">回到首页</text>
+  </view>
 </view>
+
+<template name="sugar">
+  <view class="title">
+    <text>{{item.level}}奖励</text>
+  </view>
+  <view class="sugar">
+    <image src="../../../image/present.png" class="present"></image>
+    <view class="block">
+      <text>奖励物品：</text><input type="text" value="{{item.name}}"/>
+    </view>
+    <view class="block">
+      <text>连续天数：</text><input type="number" value="{{item.days}}"/>
+    </view>
+    <view class="block">
+      <text>完成分数：</text><input type="number" value="{{item.point}}"/>
+    </view>  
+  </view>
+</template>

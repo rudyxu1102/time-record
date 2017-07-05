@@ -6,6 +6,8 @@ Page({
     btnWidth: 310,
     starUrl: '../../image/star.png',
     starHlUrl: '../../image/star_hl.png',
+    scrollFlag: false,
+    scrollTop: 0,
     list: [
       {
         "timeStart": "07:00",
@@ -38,6 +40,14 @@ Page({
         "leftStyle": '',
         "value": '',
         "stars": 0
+      },
+      {
+        "timeStart": "12:00",
+        "timeEnd": "13:00",
+        "placeholder": "开启新的一天",
+        "leftStyle": '',
+        "value": '',
+        "stars": 0
       }
     ]
   },
@@ -51,9 +61,41 @@ Page({
             list: res.data
           })
         }
+        // 设置页面滚动
+        if (res.data.length > 5) {
+          that.setData({
+            scrollFlag: true
+          })
+        } else {
+          that.setData({
+            scrollFlag: false
+          })
+        }
       }
     })
+    // wx.getSystemInfo({
+    //   success: function (res) {
+    //     that.setData({
+    //       windowHeight: res.windowHeight
+    //     })
+    //   }
+    // })
   },
+  scroll: util.debounce(function (e) {
+    console.log(e.detail.scrollTop)
+    this.setData({
+      scrollTop: e.detail.scrollTop
+    })
+    if (e.detail.scrollTop > 50) {
+      wx.setNavigationBarTitle({
+        title: '明天'
+      })
+    } else {
+      wx.setNavigationBarTitle({
+        title: '时间记录'
+      })
+    }
+  }, 500),
   touchS: function (e) {
     if (e.touches.length == 1) {
       this.setData({
@@ -142,7 +184,12 @@ Page({
     }
     list.splice(index + 1, 0, item);
     this.setData({
-      list: list
+      list: list,
+      scrollFlag: true     // 页面可以滚动
+    })
+    // 滚动到新添加的安排
+    this.setData({
+      scrollTop: this.data.scrollTop + 60 
     })
   },
   delRecord: function (e) {
@@ -152,6 +199,17 @@ Page({
     this.setData({
       list: list
     })
+    // 设置页面滚动
+    if (list.length < 6) {
+      this.setData({
+        scrollFlag: false,
+        scrollTop: 0
+      })
+    } else {
+      this.setData({
+        scrollFlag: true
+      })
+    }
   },
   bindInput: util.debounce(function (e) {
       var index = e.target.dataset.index;
@@ -160,8 +218,7 @@ Page({
       this.setData({
         list: list
       })
-      console.log(this.data.list)
-  }, 500),
+  }, 1000),
   oneStar: function (e) {
     var index = e.target.dataset.index;
     var list = this.data.list;

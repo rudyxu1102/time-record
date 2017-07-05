@@ -1,4 +1,5 @@
 <!--today.wxml-->
+<scroll-view bindscroll="scroll" class="scrollBox" scroll-y="{{scrollFlag}}" scroll-top="{{scrollTop}}" scroll-with-animation="true">
   <view class="title">
  <text>今天</text>
   </view>
@@ -8,7 +9,11 @@
   <view wx:for="{{list}}" wx:key="{{index}}">
     <template is="record" data="{{item, index, starUrl, starHlUrl}}"></template>
   </view>
-    <button class="confirm" hover-class="confirm-hover" bindtap="compareData"><text>生成图表</text></button>
+  <view class="btnBox">
+    <button class="confirm" hover-class="confirm-hover" bindtap="compareData"><text>比较评分</text></button>
+    <button class="confirm" hover-class="confirm-hover" bindtap="saveToady"><text>保存记录</text></button>
+    </view>
   </block>
   <view class="noList" wx:if="{{!list.length}}">还未安排时间</view>
 </view>
+</scroll-view>

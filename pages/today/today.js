@@ -8,7 +8,9 @@ Page({
   data: {
     btnWidth: 310,
     starUrl: '../../image/star.png',
-    starHlUrl: '../../image/star_hl.png'
+    starHlUrl: '../../image/star_hl.png',
+    scrollFlag: false,
+    scrollTop: 0,
   },
 
   /**
@@ -23,6 +25,16 @@ Page({
         that.setData({
           list: res.data
         })
+        // 设置页面滚动
+        if (res.data.length > 5) {
+          that.setData({
+            scrollFlag: true
+          })
+        } else {
+          that.setData({
+            scrollFlag: false
+          })
+        }
       }
     })
   },
@@ -39,15 +51,33 @@ Page({
    */
   onShow: function () {
     var that = this;
-    wx.hideNavigationBarLoading();
     wx.getStorage({
       key: 'today',
       success: function (res) {
         that.setData({
           list: res.data
         })
+        // 设置页面滚动
+        if (res.data.length > 5) {
+          that.setData({
+            scrollFlag: true
+          })
+        } else {
+          that.setData({
+            scrollFlag: false
+          })
+        }
       }
     })
+    if (this.data.scrollTop > 50) {
+      wx.setNavigationBarTitle({
+        title: '今天'
+      })
+    } else {
+      wx.setNavigationBarTitle({
+        title: '时间记录'
+      })
+    }
   },
 
   /**
@@ -84,6 +114,20 @@ Page({
   onShareAppMessage: function () {
   
   },
+  scroll: util.debounce(function (e) {
+    this.setData({
+      scrollTop: e.detail.scrollTop
+    })
+    if (e.detail.scrollTop > 50) {
+      wx.setNavigationBarTitle({
+        title: '今天'
+      })
+    } else {
+      wx.setNavigationBarTitle({
+        title: '时间记录'
+      })
+    }
+  }, 500),
   touchS: function (e) {
     if (e.touches.length == 1) {
       this.setData({
@@ -172,7 +216,16 @@ Page({
     }
     list.splice(index + 1, 0, item);
     this.setData({
-      list: list
+      list: list,
+      scrollFlag: true     // 页面可以滚动
+    })
+    wx.setStorage({
+      key: 'today',
+      data: list,
+    })
+    // 滚动到新添加的安排
+    this.setData({
+      scrollTop: this.data.scrollTop + 60
     })
   },
   delRecord: function (e) {
@@ -182,6 +235,21 @@ Page({
     this.setData({
       list: list
     })
+    wx.setStorage({
+      key: 'today',
+      data: list,
+    })
+    // 设置页面滚动
+    if (list.length < 6) {
+      this.setData({
+        scrollFlag: false,
+        scrollTop: 0
+      })
+    } else {
+      this.setData({
+        scrollFlag: true
+      })
+    }
   },
   bindInput: util.debounce(function (e) {
     var index = e.target.dataset.index;
@@ -190,7 +258,10 @@ Page({
     this.setData({
       list: list
     })
-    console.log(this.data.list)
+    wx.setStorage({
+      key: 'today',
+      data: list,
+    })
   }, 500),
   oneStar: function (e) {
     var index = e.target.dataset.index;
@@ -203,6 +274,10 @@ Page({
     this.setData({
       list: list
     })
+    wx.setStorage({
+      key: 'today',
+      data: list,
+    })
   },
   twoStar: function (e) {
     var index = e.target.dataset.index;
@@ -211,6 +286,10 @@ Page({
     this.setData({
       list: list
     })
+    wx.setStorage({
+      key: 'today',
+      data: list,
+    })
   },
   threeStar: function (e) {
     var index = e.target.dataset.index;
@@ -218,6 +297,10 @@ Page({
     list[index].stars = 3;
     this.setData({
       list: list
+    })
+    wx.setStorage({
+      key: 'today',
+      data: list,
     })
   }
   // compareData: function () {

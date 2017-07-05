@@ -5,7 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    sugars: [
+      {
+        level: '初级',
+        name: '',
+        days: '',
+        point: ''
+      }
+    ]
   },
 
   /**
@@ -62,5 +69,28 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  addSugar: function () {
+    var item = {
+      level: '',
+      name: '',
+      days: '',
+      point: ''
+    }
+    if (this.data.sugars.length === 1) {
+      item.level = '中级'
+    } else {
+      item.level = '终极'
+    }
+    var sugars = this.data.sugars;
+    sugars.push(item);
+    this.setData({
+      sugars: sugars
+    })
+  },
+  backHome: function () {
+    wx.switchTab({
+      url: '../../setting/setting'
+    })
   }
 })
