@@ -18,7 +18,6 @@ Page({
    */
   onLoad: function () {
     var that = this;
-    wx.hideNavigationBarLoading();
     wx.getStorage({
       key: 'today',
       success: function (res) {

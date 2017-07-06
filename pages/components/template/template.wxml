@@ -1,6 +1,7 @@
 <!--pages/components/template/template.wxml-->
+<view>
 <view class="temName">
-<input type="text" placeholder="模板名称"/>
+<input type="text" placeholder="模板名称" value="{{name}}" bindinput="saveName"/>
 </view>
 <import src="../../tomorrow/tomorrow.wxml"/>
 <view class="newTem">
@@ -13,3 +14,6 @@
   <text bindtap="backHome">回到首页</text>
   </view>
 </view>
+<template is="loading" wx:if="{{isEmpty}}" data="{{message}}"></template>
+</view>
+

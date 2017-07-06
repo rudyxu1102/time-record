@@ -8,5 +8,6 @@
     <image src="../../image/sugar.png" class="iconPre"></image>设置奖励<image src="../../image/right.png" class="right"></image></view>
   <view bindtap="addTemplate" class="option" hover-class="option-hover"><image src="../../image/template.png" class="iconPre"></image>自定义模板<image src="../../image/right.png" class="right"></image></view>
   <view bindtap="showRank" class="option" hover-class="option-hover"><image src="../../image/medal.png" class="iconPre"></image>查看排行榜<image src="../../image/right.png" class="right"></image></view>
+  <view bindtap="introduce" class="option" hover-class="option-hover"><image src="../../image/info.png" class="iconPre"></image>统计数据<image src="../../image/right.png" class="right"></image></view>
   <view bindtap="introduce" class="option" hover-class="option-hover"><image src="../../image/info.png" class="iconPre"></image>使用说明<image src="../../image/right.png" class="right"></image></view>
 </view>

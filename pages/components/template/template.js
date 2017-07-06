@@ -8,6 +8,8 @@ Page({
     btnWidth: 310,
     starUrl: '../../../image/star.png',
     starHlUrl: '../../../image/star_hl.png',
+    name: '',
+    temNames: ['添加新模板'],
     list: [
       {
         "timeStart": "07:00",
@@ -43,6 +45,45 @@ Page({
       }
     ]
   },
+  onLoad: function (options) {
+    var that = this;
+    var tapIndex = options.tapIndex;
+    wx.getStorage({
+      key: 'temNames',
+      success: function(res) {
+        that.setData({
+          temNames: res.data
+        })
+        if (res.data[tapIndex] !== '添加新模板') {
+          that.setData({
+            name: res.data[tapIndex]
+          })
+        }
+      },
+    })
+    wx.getStorage({
+      key: 'templates',
+      success: function (res) {
+        that.setData({
+          templates: res.data
+        })
+        if (res.data[tapIndex]) {
+          console.log(1111)          
+          console.log(tapIndex)
+          console.log(res.data[tapIndex])
+          that.setData({
+            list: res.data[tapIndex]
+          })
+        }
+      },
+    })
+  },
+  saveName: util.debounce(function (e) {
+    var value = e.detail.value
+    this.setData({
+      name: value
+    })
+  }, 500),
   touchS: function (e) {
     if (e.touches.length == 1) {
       this.setData({
@@ -149,7 +190,6 @@ Page({
     this.setData({
       list: list
     })
-    console.log(this.data.list)
   }, 500),
   oneStar: function (e) {
     var index = e.target.dataset.index;
@@ -180,15 +220,58 @@ Page({
     })
   },
   confirmAdd: function () {
-    wx.showToast({
-      title: '添加成功',
-      icon: 'success',
-      duration: 2000
+    var name = this.data.name;
+    var list = this.data.list;
+    var isEmpty = list.some(function (item) {
+        return item.value == '' || name == ''
     })
+    this.setData({
+      isEmpty: isEmpty,
+      message: '还没有时间安排没填喔'
+    })
+    if (!isEmpty) {
+        var temNames = this.data.temNames;
+        var length = temNames.length;
+        temNames.splice(length - 1, 0, name)
+        if (temNames.length > 3) {
+          if (temNames[temNames.length - 1] == '添加新模板') {
+            temNames.pop(); // 弹出----'添加新模板'
+          } else {
+            this.setData({
+              isEmpty: true,
+              message: '最多添加三个模板'
+            })
+            return
+          }
+        }
+        var templates = this.data.templates || [];
+        templates.push(this.data.list);
+        wx.setStorage({
+          key: 'templates',
+          data: templates,
+        })
+        this.setData({
+          templates: templates
+        })
+        wx.setStorage({
+          key: 'temNames',
+          data: temNames
+        })
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success',
+          duration: 2000
+        })
+    }
   },
   backHome: function () {
     wx.switchTab({
       url: '../../setting/setting'
+    })
+  },
+  outLoading: function () {
+    this.setData({
+      isEmpty: false
     })
   }
 })

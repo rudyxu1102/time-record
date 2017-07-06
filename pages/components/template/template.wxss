@@ -7,6 +7,7 @@
 }
 .temName input {
     font-size: 45rpx;
+    height: 60rpx;
 }
 .confirm {
   margin: 30rpx;

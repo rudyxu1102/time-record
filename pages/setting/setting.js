@@ -2,10 +2,10 @@
 var app = getApp()
 Page({
   data: {
-    userInfo: {}
+    userInfo: {},
+    temNames: ['添加新模板']
   },
   onLoad: function () {
-    console.log('onLoad')
     var that = this
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo) {
@@ -14,22 +14,37 @@ Page({
         userInfo: userInfo
       })
     })
+    wx.getStorage({
+      key: 'temNames',
+      success: function(res) {
+        that.setData({
+          temNames: res.data
+        })
+      }
+    })
+  },
+  onShow: function () {
+    var that = this;
+    wx.getStorage({
+      key: 'temNames',
+      success: function (res) {
+        that.setData({
+          temNames: res.data
+        })
+      }
+    })
   },
   addTemplate: function ()　{
     var that = this;
-    var temList = ['工作日', '休息日', '添加新模板'];
+    var temNames = this.data.temNames;
     wx.showActionSheet({
-      itemList: temList,
+      itemList: temNames,
       success: function (res) {
-        var length = temList.length;
-        if(res.tapIndex === length - 1) {
+        if (res.tapIndex >= 0) {
           wx.navigateTo({
-            url: '../components/template/template'
+            url: '../components/template/template?tapIndex=' + res.tapIndex
           })
         }
-      },
-      fail: function (res) {
-        console.log(res.errMsg)
       }
     })
   },

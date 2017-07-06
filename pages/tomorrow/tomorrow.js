@@ -8,6 +8,7 @@ Page({
     starHlUrl: '../../image/star_hl.png',
     scrollFlag: false,
     scrollTop: 0,
+    temNames: ['添加新模板'],
     list: [
       {
         "timeStart": "07:00",
@@ -73,16 +74,43 @@ Page({
         }
       }
     })
-    // wx.getSystemInfo({
-    //   success: function (res) {
-    //     that.setData({
-    //       windowHeight: res.windowHeight
-    //     })
-    //   }
-    // })
+    wx.getStorage({
+      key: 'temNames',
+      success: function (res) {
+        that.setData({
+          temNames: res.data
+        })
+      }
+    })
+    wx.getStorage({
+      key: 'templates',
+      success: function(res) {
+        that.setData({
+          templates: res.data
+        })
+      }
+    })
+  },
+  onShow: function () {
+    var that = this;
+    wx.getStorage({
+      key: 'temNames',
+      success: function (res) {
+        that.setData({
+          temNames: res.data
+        })
+      }
+    })
+    wx.getStorage({
+      key: 'templates',
+      success: function (res) {
+        that.setData({
+          templates: res.data
+        })
+      }
+    })
   },
   scroll: util.debounce(function (e) {
-    console.log(e.detail.scrollTop)
     this.setData({
       scrollTop: e.detail.scrollTop
     })
@@ -248,35 +276,55 @@ Page({
     })
   },
   confirmPlan: function () {
-    // wx.showLoading({
-    //   title: 'haha',
-    // })
-    wx.setStorage({
-      key: "tomorrow",
-      data: this.data.list
+    var list = this.data.list;
+    var isEmpty = list.some(function (item) {
+      return item.value == ''
     })
-    wx.setStorage({
-      key: 'today',
-      data: this.data.list,
+    this.setData({
+      isEmpty: isEmpty,
+      message: '还没有时间安排没填喔'
     })
-    wx.showToast({
-      title: '添加成功',
-      icon: 'success',
-      duration: 2000
+    if (!isEmpty) {
+      wx.setStorage({
+        key: "tomorrow",
+        data: this.data.list
+      })
+      wx.setStorage({
+        key: 'today',
+        data: this.data.list,
+      })
+      wx.showToast({
+        title: '添加成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }
+  },
+  outLoading: function () {
+    this.setData({
+      isEmpty: false
     })
-    // wx.hideLoading();
   },
   selectTem: function () {
     var that = this;
-    var temList = ['工作日', '休息日', '添加新模板'];
+    var temNames = this.data.temNames;
+    var lastIndex = temNames.length - 1;
+    var templates = this.data.templates;
     wx.showActionSheet({
-      itemList: temList,
+      itemList: temNames,
       success: function (res) {
-        var length = temList.length;
-
-      },
-      fail: function (res) {
-        console.log(res.errMsg)
+        if (res.tapIndex >= 0 && temNames[res.tapIndex] !== '添加新模板') {
+          that.setData({
+            list: templates[res.tapIndex]
+          })
+        }
+        if (res.tapIndex == lastIndex && temNames[lastIndex] == '添加新模板') {
+          console.log('coming')
+          console.log(res.tapIndex)          
+          wx.navigateTo({
+            url: '../components/template/template'
+          })
+        }
       }
     })
   }

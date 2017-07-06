@@ -12,6 +12,7 @@
     <button bindtap="confirmPlan" class="confirm" hover-class="confirm-hover"><text>确认计划</text></button>
     </view>
 </view>
+<template is="loading" wx:if="{{isEmpty}}" data="{{message}}"></template>
 </scroll-view>
 
 <template name="record">
@@ -33,6 +34,16 @@
   <view class="right">
     <view class="add" bindtap="addRecord" data-index="{{index}}">添加</view>
     <view class="del" bindtap="delRecord" data-index="{{index}}">删除</view>
+  </view>
+</view>
+</template>
+
+<template name="loading">
+<view class="loading">
+  <view class="tip">
+    <view class="head">提示</view>
+    <view class="words">{{message}}</view>
+    <view bindtap="outLoading" class="suretip">确定</view>
   </view>
 </view>
 </template>

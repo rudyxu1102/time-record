@@ -1,7 +1,7 @@
 <!--pages/components/sugar/sugar.wxml-->
 <view class="container">
   <view wx:for="{{sugars}}" wx:key="{{index}}">
-   <template is="sugar" data="{{item}}"></template>
+   <template is="sugar" data="{{item, index}}"></template>
   </view>
   <image src="../../../image/add.png" class="add" bindtap="addSugar" wx:if="{{sugars.length < 3}}"></image>
   <button class="sure">确定</button>
@@ -15,16 +15,20 @@
   <view class="title">
     <text>{{item.level}}奖励</text>
   </view>
-  <view class="sugar">
+  <view class="sugar" bindtap="backright" data-index="{{index}}">
     <image src="../../../image/present.png" class="present"></image>
-    <view class="block">
-      <text>奖励物品：</text><input type="text" value="{{item.name}}"/>
+    <view class="something">
+      <text>奖励物品：</text><input type="text"/>
     </view>
-    <view class="block">
-      <text>连续天数：</text><input type="number" value="{{item.days}}"/>
+    <view class="day">
+      <text>连续天数：</text><input type="number"/>
     </view>
-    <view class="block">
-      <text>完成分数：</text><input type="number" value="{{item.point}}"/>
+    <view class="point">
+      <text>完成分数：</text><input type="number"/>
     </view>  
+    <view class="delete" bindtap="delSugar" data-index="{{index}}">删除</view>
+    <view class="hide" style="{{item.display}}">
+      <view class="inner" style="{{item.leftHide}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}"></view>
+    </view>
   </view>
 </template>

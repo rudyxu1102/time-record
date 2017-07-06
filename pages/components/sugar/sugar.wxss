@@ -2,6 +2,7 @@
 .container {
   min-height: 100%;
   background: #F9F9FB;
+  position: relative;
 }
 .sugar {
   background: #fff;
@@ -13,10 +14,21 @@
 }
 .sugar input {
   display: inline-block;
-  vertical-align: middle;
-  width: 30%;
+  vertical-align: top;
+  font-size: 35rpx;
+  width: 200rpx;
 }
 
+.sugat text {
+    font-size: 35rpx;
+}
+
+.day {
+  margin-top: 15rpx;
+}
+.point {
+  margin-top: 15rpx;
+}
 .title {
     text-align: center;
     padding-top: 30rpx;    
@@ -60,4 +72,36 @@
   width: 32rpx;
   height: 32rpx;
   margin-right: 10rpx;
+}
+.delete {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 20rpx;
+  width: 150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-top: -30rpx;
+  background: #e7413e;
+  color: #fff;
+  text-align: center;
+  border-radius: 8rpx;
+}
+.hide {
+  width: 200rpx;
+  height: 70%;
+  background: transparent;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: 4;
+}
+.inner {
+  background: #fff;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s;
 }
