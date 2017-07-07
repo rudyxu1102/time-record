@@ -105,3 +105,39 @@
   height: 100%;
   transition: 0.5s;
 }
+.loading {
+  z-index: 10;
+  background: rgba(102, 102, 102, 0.5);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tip {
+  text-align: center;  
+  width: 80%;
+  display: inline-block;
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+.suretip {
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #90CFF0;
+  color: #fff;
+}
+.head {
+  margin: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid #9d9d9d;
+  color: #9d9d9d;
+}
+.words {
+  margin: 80rpx 0;
+  font-size: 38rpx;
+}

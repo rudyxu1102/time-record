@@ -22,7 +22,7 @@ Page({
       key: 'today',
       success: function (res) {
         that.setData({
-          list: res.data
+          todayList: res.data
         })
         // 设置页面滚动
         if (res.data.length > 5) {
@@ -35,6 +35,16 @@ Page({
           })
         }
       }
+    })
+    wx.getStorage({
+      key: 'tomorrow',
+      success: function(res) {
+        if (res.data) {
+          that.setData({
+            tomorrowList: res.data
+          })
+        }
+      },
     })
   },
 
@@ -54,7 +64,7 @@ Page({
       key: 'today',
       success: function (res) {
         that.setData({
-          list: res.data
+          todayList: res.data
         })
         // 设置页面滚动
         if (res.data.length > 5) {
@@ -83,7 +93,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    this.setData({
+      loading: false
+    })
   },
 
   /**
@@ -140,7 +152,7 @@ Page({
       //手指移动时水平方向位置
       var moveX = e.touches[0].clientX;
       //手指起始点位置与移动期间的差值
-      var disX = this.data.startX - moveX;
+      var disX = this.data.startX - moveX + 20;
       var btnWidth = this.data.btnWidth;
       var leftStyle = "";
       if (disX == 0 || disX < 0) {//如果移动距离小于等于0，文本层位置不变
@@ -154,11 +166,11 @@ Page({
       }
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
-      var list = this.data.list;
-      list[index].leftStyle = leftStyle;
+      var todayList = this.data.todayList;
+      todayList[index].leftStyle = leftStyle;
       // //更新列表的状态
       this.setData({
-        list: list
+        todayList: todayList
       });
     }
   },
@@ -167,60 +179,80 @@ Page({
       //手指移动结束后水平位置
       var endX = e.changedTouches[0].clientX;
       //触摸开始与结束，手指移动的距离
-      var disX = this.data.startX - endX;
+      var disX = this.data.startX - endX + 20;
       var btnWidth = this.data.btnWidth;
       //如果距离小于删除按钮的1/2，不显示删除按钮
       var leftStyle = disX > btnWidth / 5 ? "left:-" + btnWidth + "rpx" : "left:20rpx";
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
-      var list = this.data.list;
-      list[index].leftStyle = leftStyle;
+      var todayList = this.data.todayList;
+      todayList[index].leftStyle = leftStyle;
       //更新列表的状态
       this.setData({
-        list: list
+        todayList: todayList
       });
     }
   },
   bindTimeChange: function (e) {
+    var timeStart, timeEnd, isSure;
     var that = this;
-    var array = this.data.list;
+    var array = this.data.todayList;
     var index = e.target.dataset.index;
-    var order = e.target.dataset.time;  // 开始时间或者结束时间
-    array[index][order] = e.detail.value;
+    var key = e.target.dataset.time;  // 开始时间或者结束时间
+    if (key == 'timeStart') {
+      timeStart = e.detail.value;
+      timeEnd = array[index].timeEnd;
+      isSure = util.compareTime(timeStart, timeEnd)
+    } else {
+      timeEnd = e.detail.value;
+      timeStart = array[index].timeStart;
+      isSure = util.compareTime(timeStart, timeEnd)
+    }
+    if (isSure) {
+      array[index][key] = e.detail.value;
+    } else {
+      this.setData({
+        title: '提示',
+        message: '时间范围不合适哦',
+        loading: true
+      })
+      return
+    }
     this.setData({
-      list: array
+      todayList: array
     })
   },
   bindfocus: function (e) {
     var index = e.target.dataset.index;
-    var list = this.data.list;
-    list[index].placeholder = '';
+    var todayList = this.data.todayList;
+    todayList[index].placeholder = '';
     this.setData({
-      list: list
+      todayList: todayList
     })
   },
   addRecord: function (e) {
     var index = e.target.dataset.index;
-    var list = this.data.list
-    list[index].leftStyle = "left: 20rpx";  // 返回原来的位置
-    var timeStart = list[index].timeStart;
-    var timeEnd = list[index].timeEnd;
+    var todayList = this.data.todayList
+    todayList[index].leftStyle = "left: 20rpx";  // 返回原来的位置
+    var timeStart = todayList[index].timeStart;
+    var timeEnd = todayList[index].timeEnd;
     var newStart = util.newTime(timeStart);
     var newEnd = util.newTime(timeEnd);
     let item = {
       "timeStart": newStart,
       "timeEnd": newEnd,
       "placeholder": "开启新的一天",
-      "leftStyle": ''
+      "leftStyle": '',
+      "value": ''
     }
-    list.splice(index + 1, 0, item);
+    todayList.splice(index + 1, 0, item);
     this.setData({
-      list: list,
+      todayList: todayList,
       scrollFlag: true     // 页面可以滚动
     })
     wx.setStorage({
       key: 'today',
-      data: list,
+      data: todayList,
     })
     // 滚动到新添加的安排
     this.setData({
@@ -229,17 +261,17 @@ Page({
   },
   delRecord: function (e) {
     var index = e.target.dataset.index;
-    var list = this.data.list;
-    list.splice(index, 1);
+    var todayList = this.data.todayList;
+    todayList.splice(index, 1);
     this.setData({
-      list: list
+      todayList: todayList
     })
     wx.setStorage({
       key: 'today',
-      data: list,
+      data: todayList,
     })
     // 设置页面滚动
-    if (list.length < 6) {
+    if (todayList.length < 6) {
       this.setData({
         scrollFlag: false,
         scrollTop: 0
@@ -252,60 +284,107 @@ Page({
   },
   bindInput: util.debounce(function (e) {
     var index = e.target.dataset.index;
-    var list = this.data.list;
-    list[index].value = e.detail.value
+    var todayList = this.data.todayList;
+    todayList[index].value = e.detail.value
     this.setData({
-      list: list
-    })
-    wx.setStorage({
-      key: 'today',
-      data: list,
+      todayList: todayList
     })
   }, 500),
   oneStar: function (e) {
     var index = e.target.dataset.index;
-    var list = this.data.list;
-    if (list[index].stars == 1) {
-      list[index].stars = 0;
+    var todayList = this.data.todayList;
+    if (todayList[index].stars == 1) {
+      todayList[index].stars = 0;
     } else {
-      list[index].stars = 1;
+      todayList[index].stars = 1;
     }
     this.setData({
-      list: list
+      todayList: todayList
     })
     wx.setStorage({
       key: 'today',
-      data: list,
+      data: todayList,
     })
   },
   twoStar: function (e) {
     var index = e.target.dataset.index;
-    var list = this.data.list;
-    list[index].stars = 2;
+    var todayList = this.data.todayList;
+    todayList[index].stars = 2;
     this.setData({
-      list: list
+      todayList: todayList
     })
     wx.setStorage({
       key: 'today',
-      data: list,
+      data: todayList,
     })
   },
   threeStar: function (e) {
     var index = e.target.dataset.index;
-    var list = this.data.list;
-    list[index].stars = 3;
+    var todayList = this.data.todayList;
+    todayList[index].stars = 3;
     this.setData({
-      list: list
+      todayList: todayList
     })
     wx.setStorage({
       key: 'today',
-      data: list,
+      data: todayList,
     })
+  },
+  outLoading: function () {
+    this.setData({
+      loading: false
+    })
+  },
+  compareData: function () {
+    var todayList = this.data.todayList;
+    var isEmpty = todayList.some(function (item) {
+      return item.value == ''
+    })
+    if (!isEmpty) {
+      var tomorrowList = this.data.tomorrowList;
+      var todayList = this.data.todayList;
+      
+      var todayValue = todayList.map(function (item) {
+        return item.value
+      })
+      var timePoint = 0;
+      var starWeight = 0;
+      tomorrowList.forEach(function (item, tomorrowIndex) {
+        var todayIndex = todayValue.indexOf(item.value)
+    
+        if (todayIndex !== -1) {
+          var tomorrowS = item.timeStart;
+          var tomorrowE = item.timeEnd;
+          var todayS = todayList[todayIndex].timeStart;
+          var todayE = todayList[todayIndex].timeEnd;
+          var tomorrowMin = util.deltaTime(tomorrowS, tomorrowE);
+          var todayMin = util.deltaTime(todayS, todayE);
+          var percent = util.percentMin(tomorrowMin, todayMin);
+          var stars = item.stars;
+          var weight;
+          if (stars == '0') { weight = 0};
+          if (stars == '1') { weight = 15 };
+          if (stars == '2') { weight = 30 };
+          if (stars == '3') { weight = 55 };
+          var point = percent * weight;
+          timePoint = timePoint + point;
+          starWeight = starWeight + weight
+          
+        } else {
+
+        }
+      })
+      var planPoint = (timePoint / starWeight).toFixed(0);
+      wx.showToast({
+        title: '评分：' + planPoint + '分！',
+      })
+    } else {
+      console.log(23333)
+      this.setData({
+        title: '提示',
+        message: '还有时间安排没填哦',
+        loading: true
+      })
+    }
   }
-  // compareData: function () {
-  //   console.log(111)
-  //   wx.navigateTo({
-  //     url: 'test'
-  //   })
-  // }
 })

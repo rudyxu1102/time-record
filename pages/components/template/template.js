@@ -78,6 +78,11 @@ Page({
       },
     })
   },
+  onHide: function () {
+    this.setData({
+      isEmpty: false
+    })
+  },
   saveName: util.debounce(function (e) {
     var value = e.detail.value
     this.setData({
@@ -227,7 +232,8 @@ Page({
     })
     this.setData({
       isEmpty: isEmpty,
-      message: '还没有时间安排没填喔'
+      message: '还没有时间安排没填喔',
+      title: '提示'
     })
     if (!isEmpty) {
         var temNames = this.data.temNames;

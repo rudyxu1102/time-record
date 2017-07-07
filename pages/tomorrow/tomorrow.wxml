@@ -12,17 +12,17 @@
     <button bindtap="confirmPlan" class="confirm" hover-class="confirm-hover"><text>确认计划</text></button>
     </view>
 </view>
-<template is="loading" wx:if="{{isEmpty}}" data="{{message}}"></template>
+<template is="loading" wx:if="{{isEmpty}}" data="{{message, title}}"></template>
 </scroll-view>
 
 <template name="record">
 <view class="container">
   <view class="left" style="{{item.leftStyle}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}">
     <view class="timeBox">
-      <picker mode="time" value="{{item.timeStart}}" start="06:00" end="13:00" bindchange="bindTimeChange" data-index="{{index}}" data-time="timeStart">
+      <picker mode="time" value="{{item.timeStart}}" start="00:00" end="24:00" bindchange="bindTimeChange" data-index="{{index}}" data-time="timeStart">
         <view class="time">{{item.timeStart}}</view>
       </picker> —
-      <picker mode="time" value="{{item.timeEnd}}" start="06:00" end="13:00" bindchange="bindTimeChange" data-index="{{index}}" data-time="timeEnd">
+      <picker mode="time" value="{{item.timeEnd}}" start="00:00" end="24:00" bindchange="bindTimeChange" data-index="{{index}}" data-time="timeEnd">
         <view class="time">{{item.timeEnd}}</view>
       </picker>
     </view>
@@ -41,7 +41,7 @@
 <template name="loading">
 <view class="loading">
   <view class="tip">
-    <view class="head">提示</view>
+    <view class="head">{{title}}</view>
     <view class="words">{{message}}</view>
     <view bindtap="outLoading" class="suretip">确定</view>
   </view>

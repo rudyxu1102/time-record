@@ -5,8 +5,8 @@
   </view>
 <import src="../tomorrow/tomorrow.wxml"/>
 <view class="today">
-  <block wx:if="{{list.length}}">
-  <view wx:for="{{list}}" wx:key="{{index}}">
+  <block wx:if="{{todayList.length}}">
+  <view wx:for="{{todayList}}" wx:key="{{index}}">
     <template is="record" data="{{item, index, starUrl, starHlUrl}}"></template>
   </view>
   <view class="btnBox">
@@ -14,6 +14,7 @@
     <button class="confirm" hover-class="confirm-hover" bindtap="saveToady"><text>保存记录</text></button>
     </view>
   </block>
-  <view class="noList" wx:if="{{!list.length}}">还未安排时间</view>
+  <view class="noList" wx:if="{{!todayList.length}}">还未安排时间</view>
 </view>
+<template is="loading" data="{{title, message}}" wx:if="{{loading}}"></template>
 </scroll-view>

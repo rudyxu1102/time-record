@@ -110,6 +110,11 @@ Page({
       }
     })
   },
+  onHide: function () {
+    this.setData({
+      isEmpty: false
+    })
+  },
   scroll: util.debounce(function (e) {
     this.setData({
       scrollTop: e.detail.scrollTop
@@ -137,7 +142,7 @@ Page({
       //手指移动时水平方向位置
       var moveX = e.touches[0].clientX;
       //手指起始点位置与移动期间的差值
-      var disX = this.data.startX - moveX;
+      var disX = this.data.startX - moveX + 20;
       var btnWidth = this.data.btnWidth;
       var leftStyle = "";
       if (disX == 0 || disX < 0) {//如果移动距离小于等于0，文本层位置不变
@@ -164,7 +169,7 @@ Page({
       //手指移动结束后水平位置
       var endX = e.changedTouches[0].clientX;
       //触摸开始与结束，手指移动的距离
-      var disX = this.data.startX - endX;
+      var disX = this.data.startX - endX + 20;
       var btnWidth = this.data.btnWidth;
       //如果距离小于删除按钮的1/2，不显示删除按钮
       var leftStyle = disX > btnWidth / 5 ? "left:-" + btnWidth + "rpx" : "left:20rpx";
@@ -179,11 +184,30 @@ Page({
     }
   },
   bindTimeChange: function (e) {
+    var timeStart, timeEnd, isSure;
     var that = this;
     var array = this.data.list;
     var index = e.target.dataset.index;
-    var order = e.target.dataset.time;  // 开始时间或者结束时间
-    array[index][order] = e.detail.value;
+    var key = e.target.dataset.time;  // 开始时间或者结束时间
+    if (key == 'timeStart') {
+      timeStart = e.detail.value;
+      timeEnd = array[index].timeEnd;
+      isSure = util.compareTime(timeStart, timeEnd)
+    } else {
+      timeEnd = e.detail.value;
+      timeStart = array[index].timeStart;
+      isSure = util.compareTime(timeStart, timeEnd);
+    }
+    if (isSure) {
+      array[index][key] = e.detail.value;
+    } else {
+      this.setData({
+        title: '提示',
+        message: '时间范围不合适哦',
+        isEmpty: true
+      })
+      return
+    }
     this.setData({
       list: array
     })
@@ -282,7 +306,8 @@ Page({
     })
     this.setData({
       isEmpty: isEmpty,
-      message: '还没有时间安排没填喔'
+      message: '还没有时间安排没填喔',
+      title: '提示'
     })
     if (!isEmpty) {
       wx.setStorage({

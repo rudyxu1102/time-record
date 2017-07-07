@@ -14,6 +14,6 @@
   <text bindtap="backHome">回到首页</text>
   </view>
 </view>
-<template is="loading" wx:if="{{isEmpty}}" data="{{message}}"></template>
+<template is="loading" wx:if="{{isEmpty}}" data="{{message, title}}"></template>
 </view>
 

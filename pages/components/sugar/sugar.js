@@ -1,4 +1,5 @@
 // pages/components/sugar/sugar.js
+var util = require('../../../utils/util');
 Page({
 
   /**
@@ -12,6 +13,9 @@ Page({
         name: '',
         days: '',
         point: '',
+        nameHolder: '棒棒糖',
+        daysHolder: '3',
+        pointHolder: '0~100',
         leftHide: 'left: 0rpx'
       }
     ]
@@ -42,7 +46,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    this.setData({
+      loading: false
+    })
   },
 
   /**
@@ -116,15 +122,14 @@ Page({
       if (disX == 0 || disX < 0) {//如果移动距离小于等于0，文本层位置不变
         leftStyle = "left:0rpx";
       } else if (disX > 0) {//移动距离大于0，文本层left值等于手指移动距离
-        leftStyle = "left:-" + disX + "rpx";
-        if (disX >= hideWidth) {
-          //控制手指移动距离最大值为删除按钮的宽度
-          leftStyle = "left:-" + hideWidth + "rpx";
-        }
+        leftStyle = "left:-" + hideWidth + "rpx";
       }
       var index = e.target.dataset.index;
       var sugars = this.data.sugars;
       sugars[index].leftHide = leftStyle;
+      if (disX >= hideWidth) {
+        sugars[index].display = 'display: none'
+      }
       this.setData({
         sugars: sugars
       })
@@ -147,21 +152,26 @@ Page({
     this.setData({
       sugars: sugars
     })
-  },
-  backright: function (e) {
-    var sugars = this.data.sugars;
-    sugars[index].leftHide = 'left: 0';
-    sugars[index].display = "display: block"
-    this.setData({
-      sugars: sugars
-    })
+    var that = this;
+    setTimeout(function () {
+      var index = e.target.dataset.index;
+      var sugars = that.data.sugars;
+      sugars[index].leftHide = 'left: 0';
+      sugars[index].display = "display: block"
+      that.setData({
+        sugars: sugars
+      })
+    }, 5000)
   },
   delSugar: function (e) {
-    console.log(e)
     var index = e.target.dataset.index;
     if (index) {
       var sugars = this.data.sugars;
       sugars.splice(index, 1);
+      if (index == 1 && sugars.length == 2) {
+        console.log(111)
+        sugars[1].level = '中级'
+      }
       this.setData({
         sugars: sugars
       })
@@ -171,5 +181,61 @@ Page({
         duration: 2000
       })
     }
+  },
+  saveSugar: util.debounce(function (e) {
+    var index = e.target.dataset.index;
+    var key = e.target.dataset.key;
+    var sugars = this.data.sugars;
+    sugars[index][key] = e.detail.value;
+    if (key == 'point') {
+      if (e.detail.value < 0 || e.detail.value > 100) {
+        sugars[index].point = '';
+        this.setData({
+          loading: true,
+          message: '请在合适的范围内输入',
+          title: '提示',
+        })
+      }
+    }
+    this.setData({
+      sugars: sugars
+    })
+  }, 500),
+  hideDelBtn: function (e) {
+    var index = e.target.dataset.index;
+    var sugars = this.data.sugars;
+    sugars[index].leftHide = 'left: 0';
+    sugars[index].display = "display: block";
+    this.setData({
+      sugars: sugars
+    })
+  },
+  confirm: function () {
+    var sugars = this.data.sugars;
+    var isEmpty = sugars.some(function (item) {
+      return item.name == '' && item.days == '' && item.point == '';
+    })
+    if (!isEmpty) {
+      wx.setStorage({
+        key: 'sugars',
+        data: sugars,
+      })
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        duration: 2000
+      })
+    } else {
+      this.setData({
+        loading: true,
+        message: '还有选项没写哦',
+        title: '提示'
+      })
+    }
+  },
+  outLoading: function () {
+    this.setData({
+      loading: false
+    })
   }
 })

@@ -47,7 +47,7 @@ picker {
   width: 100%;
   background: #fff;
   height: 100%;
-  transition: left 0.2s ease-in-out;
+  transition: 0.2s;
 }
 .right {
   position: absolute;
