@@ -1,0 +1,9 @@
+/* pages/components/canvas/canvas.wxss */
+.canvas-element {
+  height: 200px;
+  margin-top: 40rpx;
+  position: relative;
+}
+/*.scrollCanvas {
+  width: 100%;
+}*/

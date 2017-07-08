@@ -6,7 +6,8 @@
     "pages/components/template/template",
     "pages/components/introduce/introduce",
     "pages/components/rank/rank",
-    "pages/components/sugar/sugar"
+    "pages/components/sugar/sugar",
+    "pages/components/canvas/canvas"
   ],
   "window":{
     "backgroundTextStyle":"light",

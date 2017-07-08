@@ -379,6 +379,7 @@ Page({
       var starWeight = 0;
       tomorrowList.forEach(function (item, tomorrowIndex) {
         var todayIndex = todayValue.indexOf(item.value);
+        todayValue[todayIndex] = todayIndex;  // 防止第二次出现相同的value
         var stars = item.stars;
         var weight;
         if (stars == '0') { weight = 5 };
@@ -396,12 +397,13 @@ Page({
           var point = percent * weight;
           timePoint = timePoint + point;
           starWeight = starWeight + weight
-          
         } else {
           starWeight = starWeight + weight
         }
       })
-      var planPoint = (timePoint / starWeight).toFixed(0);
+      var planPoint = (timePoint / starWeight).toFixed(0) - 0;
+
+
       wx.showToast({
         title: '评分：' + planPoint + '分！',
         icon: 'success'
@@ -458,6 +460,27 @@ Page({
       wx.setStorage({
         key: 'logs',
         data: logs,
+      })
+    } else {
+      this.setData({
+        title: '提示',
+        message: '还有时间安排没填哦',
+        loading: true
+      })
+    }
+  },
+  createImage: function () {
+    var data = this.data.todayList;
+    var isEmpty = data.some(function (item) {
+      return item.value == ''
+    })
+    if (!isEmpty) {
+      wx.setStorage({
+        key: 'today',
+        data: data,
+      })
+      wx.navigateTo({
+        url: '../components/canvas/canvas',
       })
     } else {
       this.setData({

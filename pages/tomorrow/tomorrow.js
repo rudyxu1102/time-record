@@ -182,7 +182,7 @@ Page({
         list: list
       });
     }
-  },
+  },  
   bindTimeChange: function (e) {
     var timeStart, timeEnd, isSure;
     var that = this;
