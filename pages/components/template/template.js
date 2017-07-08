@@ -10,12 +10,14 @@ Page({
     starHlUrl: '../../../image/star_hl.png',
     name: '',
     temNames: ['添加新模板'],
+    scrollFlag: false,
+    scrollTop: 0,
     list: [
       {
         "timeStart": "07:00",
         "timeEnd": "08:00",
         "placeholder": "开启新的一天",
-        "leftStyle": '',
+        "leftStyle": 'left: 20rpx',
         "value": '',
         "stars": 0
       },
@@ -23,7 +25,7 @@ Page({
         "timeStart": "08:00",
         "timeEnd": "09:00",
         "placeholder": "开启新的一天",
-        "leftStyle": '',
+        "leftStyle": 'left: 20rpx',
         "value": '',
         "stars": 0
       },
@@ -31,7 +33,7 @@ Page({
         "timeStart": "09:00",
         "timeEnd": "11:00",
         "placeholder": "开启新的一天",
-        "leftStyle": '',
+        "leftStyle": 'left: 20rpx',
         "value": '',
         "stars": 0
       },
@@ -39,7 +41,7 @@ Page({
         "timeStart": "11:00",
         "timeEnd": "12:00",
         "placeholder": "开启新的一天",
-        "leftStyle": '',
+        "leftStyle": 'left: 20rpx',
         "value": '',
         "stars": 0
       }
@@ -56,6 +58,7 @@ Page({
         })
         if (res.data[tapIndex] !== '添加新模板') {
           that.setData({
+            isEdit: tapIndex,
             name: res.data[tapIndex]
           })
         }
@@ -68,11 +71,18 @@ Page({
           templates: res.data
         })
         if (res.data[tapIndex]) {
-          console.log(1111)          
-          console.log(tapIndex)
-          console.log(res.data[tapIndex])
           that.setData({
             list: res.data[tapIndex]
+          })
+        }
+        // 设置页面滚动
+        if (res.data[tapIndex].length > 5) {
+          that.setData({
+            scrollFlag: true
+          })
+        } else {
+          that.setData({
+            scrollFlag: false
           })
         }
       },
@@ -143,6 +153,20 @@ Page({
       });
     }
   },
+  scroll: util.debounce(function (e) {
+    this.setData({
+      scrollTop: e.detail.scrollTop
+    })
+    if (e.detail.scrollTop > 50) {
+      wx.setNavigationBarTitle({
+        title: '明天'
+      })
+    } else {
+      wx.setNavigationBarTitle({
+        title: '时间记录'
+      })
+    }
+  }, 500),
   bindTimeChange: function (e) {
     var that = this;
     var array = this.data.list;
@@ -173,12 +197,21 @@ Page({
       "timeStart": newStart,
       "timeEnd": newEnd,
       "placeholder": "开启新的一天",
-      "leftStyle": ''
+      "leftStyle": 'left: 20rpx',
+      "value": ''
     }
     list.splice(index + 1, 0, item);
     this.setData({
-      list: list
+      list: list,
+      scrollFlag: true     // 页面可以滚动
     })
+    // 滚动到新添加的安排
+    var that = this;
+    setTimeout(function () {
+      that.setData({
+        scrollTop: that.data.scrollTop + 60
+      })
+    }, 250)
   },
   delRecord: function (e) {
     var index = e.target.dataset.index;
@@ -187,6 +220,17 @@ Page({
     this.setData({
       list: list
     })
+    // 设置页面滚动
+    if (list.length < 6) {
+      this.setData({
+        scrollFlag: false,
+        scrollTop: 0
+      })
+    } else {
+      this.setData({
+        scrollFlag: true
+      })
+    }
   },
   bindInput: util.debounce(function (e) {
     var index = e.target.dataset.index;
@@ -238,36 +282,40 @@ Page({
     if (!isEmpty) {
         var temNames = this.data.temNames;
         var length = temNames.length;
-        temNames.splice(length - 1, 0, name)
-        if (temNames.length > 3) {
-          if (temNames[temNames.length - 1] == '添加新模板') {
-            temNames.pop(); // 弹出----'添加新模板'
-          } else {
-            this.setData({
-              isEmpty: true,
-              message: '最多添加三个模板'
-            })
-            return
-          }
-        }
         var templates = this.data.templates || [];
-        templates.push(this.data.list);
+        if (this.data.isEdit >= 0) {
+          let isEdit = this.data.isEdit;
+          templates[isEdit] = this.data.list;
+          temNames[isEdit] = name;
+          wx.showToast({
+            title: '保存成功',
+            icon: 'success',
+            duration: 2000
+          })
+        } else {
+          let isEdit = templates.length;
+          templates[isEdit] = this.data.list;
+          temNames[isEdit] = name;
+          temNames[isEdit + 1] = '添加新模板';
+          wx.showToast({
+            title: '添加成功',
+            icon: 'success',
+            duration: 2000
+          })
+        }
+        if (temNames.length > 3 && temNames[temNames.length - 1] == '添加新模板') {
+          temNames.pop(); // 弹出----'添加新模板'
+        }
         wx.setStorage({
           key: 'templates',
           data: templates,
-        })
-        this.setData({
-          templates: templates
         })
         wx.setStorage({
           key: 'temNames',
           data: temNames
         })
-        wx.showToast({
-          title: '添加成功',
-          icon: 'success',
-          duration: 2000
-        })
+    } else {
+
     }
   },
   backHome: function () {

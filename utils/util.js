@@ -1,20 +1,16 @@
-// function formatTime(date) {
-//   var year = date.getFullYear()
-//   var month = date.getMonth() + 1
-//   var day = date.getDate()
+function formatTime(date, count) {
+  date.setDate(date.getDate() + count);
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
 
-//   var hour = date.getHours()
-//   var minute = date.getMinutes()
-//   var second = date.getSeconds()
+  return [year, month, day].map(formatNumber).join('-') 
+}
 
-
-//   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-// }
-
-// function formatNumber(n) {
-//   n = n.toString()
-//   return n[1] ? n : '0' + n
-// }
+function formatNumber(n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
 
 function compareTime (start, end) {
   var startHour = start.slice(0, 1) !== '0' ? start.slice(0, 2) : start.slice(1, 2);
@@ -88,6 +84,7 @@ function debounce(func, wait) {
 }
 
 module.exports = {
+  formatTime: formatTime,
   newTime: newTime,
   debounce: debounce,
   deltaTime: deltaTime,

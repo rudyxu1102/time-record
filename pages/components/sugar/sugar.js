@@ -25,7 +25,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.getStorage({
+      key: 'sugars',
+      success: function(res) {
+        that.setData({
+          sugars: res.data
+        })
+      },
+    })
   },
 
   /**
@@ -161,7 +169,7 @@ Page({
       that.setData({
         sugars: sugars
       })
-    }, 5000)
+    }, 4000)
   },
   delSugar: function (e) {
     var index = e.target.dataset.index;
@@ -174,6 +182,10 @@ Page({
       }
       this.setData({
         sugars: sugars
+      })
+      wx.setStorage({
+        key: 'sugars',
+        data: sugars
       })
       wx.showToast({
         title: '删除成功',

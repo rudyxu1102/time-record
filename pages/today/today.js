@@ -44,7 +44,15 @@ Page({
             tomorrowList: res.data
           })
         }
-      },
+      }
+    })
+    wx.getStorage({
+      key: 'sugars',
+      success: function(res) {
+        that.setData({
+          sugars: res.data
+        })
+      }
     })
   },
 
@@ -87,15 +95,31 @@ Page({
         title: '时间记录'
       })
     }
+    wx.getStorage({
+      key: 'sugars',
+      success: function (res) {
+        that.setData({
+          sugars: res.data
+        })
+      }
+    })
+    wx.getStorage({
+      key: 'tomorrow',
+      success: function (res) {
+        if (res.data) {
+          that.setData({
+            tomorrowList: res.data
+          })
+        }
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    this.setData({
-      loading: false
-    })
+
   },
 
   /**
@@ -242,8 +266,9 @@ Page({
       "timeStart": newStart,
       "timeEnd": newEnd,
       "placeholder": "开启新的一天",
-      "leftStyle": '',
-      "value": ''
+      "leftStyle": 'left: 20rpx',
+      "value": '',
+      "stars": 0
     }
     todayList.splice(index + 1, 0, item);
     this.setData({
@@ -255,9 +280,12 @@ Page({
       data: todayList,
     })
     // 滚动到新添加的安排
-    this.setData({
-      scrollTop: this.data.scrollTop + 60
-    })
+    var that = this;
+    setTimeout(function () {
+      that.setData({
+        scrollTop: that.data.scrollTop + 60
+      })
+    }, 250)
   },
   delRecord: function (e) {
     var index = e.target.dataset.index;
@@ -350,8 +378,13 @@ Page({
       var timePoint = 0;
       var starWeight = 0;
       tomorrowList.forEach(function (item, tomorrowIndex) {
-        var todayIndex = todayValue.indexOf(item.value)
-    
+        var todayIndex = todayValue.indexOf(item.value);
+        var stars = item.stars;
+        var weight;
+        if (stars == '0') { weight = 5 };
+        if (stars == '1') { weight = 15 };
+        if (stars == '2') { weight = 30 };
+        if (stars == '3') { weight = 55 };
         if (todayIndex !== -1) {
           var tomorrowS = item.timeStart;
           var tomorrowE = item.timeEnd;
@@ -360,26 +393,73 @@ Page({
           var tomorrowMin = util.deltaTime(tomorrowS, tomorrowE);
           var todayMin = util.deltaTime(todayS, todayE);
           var percent = util.percentMin(tomorrowMin, todayMin);
-          var stars = item.stars;
-          var weight;
-          if (stars == '0') { weight = 0};
-          if (stars == '1') { weight = 15 };
-          if (stars == '2') { weight = 30 };
-          if (stars == '3') { weight = 55 };
           var point = percent * weight;
           timePoint = timePoint + point;
           starWeight = starWeight + weight
           
         } else {
-
+          starWeight = starWeight + weight
         }
       })
       var planPoint = (timePoint / starWeight).toFixed(0);
       wx.showToast({
         title: '评分：' + planPoint + '分！',
+        icon: 'success'
+      })
+      
+      var todayDate = util.formatTime(new Date(), 0);
+      var yesteDate = util.formatTime(new Date(), -1)
+      var logs = wx.getStorageSync('logs') || {}
+      logs[todayDate] = planPoint;
+      var keepDays = wx.getStorageSync('keepDays') || {};
+      if (logs[yesteDate]) {
+        keepDays[todayDate] = planPoint;
+        wx.setStorage({
+          key: 'keepDays',
+          data: keepDays
+        })
+      } else {
+        keepDays = {};
+        keepDays[todayDate] = planPoint
+        wx.setStorage({
+          key: 'keepDays',
+          data: keepDays,
+        })
+      }
+      var sugars = this.data.sugars;
+      if (sugars) {
+        var award = '';
+        var insistDays = Object.keys(keepDays).length;
+        sugars.forEach(function (item) {
+          var targetPoint = item.point - 0;
+          var getFlag = true;
+          for (var prop in keepDays) {
+            if (keepDays[prop] < targetPoint) {
+              getFlag = false;
+              break
+            }
+          }
+          if (insistDays >= item.days && getFlag) {
+            award = award + item.name + '✨'
+          }
+        })
+        if (award) {
+          var msg = `🎈🎈🎈🎈🎈🎈\n获得奖励\n✨${award}`;
+          var that = this;
+          setTimeout(function () {
+            that.setData({
+              title: '恭喜你完成计划',
+              message: msg,
+              loading: true
+            })
+          }, 1500)
+        }
+      }
+      wx.setStorage({
+        key: 'logs',
+        data: logs,
       })
     } else {
-      console.log(23333)
       this.setData({
         title: '提示',
         message: '还有时间安排没填哦',

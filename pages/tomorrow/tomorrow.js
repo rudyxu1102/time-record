@@ -14,7 +14,7 @@ Page({
         "timeStart": "07:00",
         "timeEnd": "08:00",
         "placeholder": "开启新的一天",
-        "leftStyle": '',
+        "leftStyle": 'left: 20rpx',
         "value": '',
         "stars": 0
       },
@@ -22,7 +22,7 @@ Page({
         "timeStart": "08:00",
         "timeEnd": "09:00",
         "placeholder": "开启新的一天",
-        "leftStyle": '',
+        "leftStyle": 'left: 20rpx',
         "value": '',
         "stars": 0
       },
@@ -30,7 +30,7 @@ Page({
         "timeStart": "09:00",
         "timeEnd": "11:00",
         "placeholder": "开启新的一天",
-        "leftStyle": '',
+        "leftStyle": 'left: 20rpx',
         "value": '',
         "stars": 0
       },
@@ -38,7 +38,7 @@ Page({
         "timeStart": "11:00",
         "timeEnd": "12:00",
         "placeholder": "开启新的一天",
-        "leftStyle": '',
+        "leftStyle": 'left: 20rpx',
         "value": '',
         "stars": 0
       },
@@ -46,7 +46,7 @@ Page({
         "timeStart": "12:00",
         "timeEnd": "13:00",
         "placeholder": "开启新的一天",
-        "leftStyle": '',
+        "leftStyle": 'left: 20rpx',
         "value": '',
         "stars": 0
       }
@@ -232,17 +232,23 @@ Page({
       "timeStart": newStart,
       "timeEnd": newEnd,
       "placeholder": "开启新的一天",
-      "leftStyle": ''
+      "leftStyle": 'left: 20rpx',
+      "stars": 0,
+      "value": ''
     }
     list.splice(index + 1, 0, item);
     this.setData({
       list: list,
       scrollFlag: true     // 页面可以滚动
     })
+    
     // 滚动到新添加的安排
-    this.setData({
-      scrollTop: this.data.scrollTop + 60 
-    })
+    var that = this;
+    setTimeout(function () {
+      that.setData({
+        scrollTop: that.data.scrollTop + 60
+      })
+    }, 250)
   },
   delRecord: function (e) {
     var index = e.target.dataset.index;
@@ -344,8 +350,6 @@ Page({
           })
         }
         if (res.tapIndex == lastIndex && temNames[lastIndex] == '添加新模板') {
-          console.log('coming')
-          console.log(res.tapIndex)          
           wx.navigateTo({
             url: '../components/template/template'
           })

@@ -145,4 +145,7 @@ picker {
 .words {
   margin: 80rpx 0;
   font-size: 38rpx;
+  padding: 0 30rpx;
+  white-space: pre-wrap;
+  line-height: 60rpx;
 }

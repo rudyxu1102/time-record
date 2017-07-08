@@ -1,5 +1,5 @@
 <!--pages/components/template/template.wxml-->
-<view>
+<scroll-view bindscroll="scroll" class="scrollBox" scroll-y="{{scrollFlag}}" scroll-top="{{scrollTop}}" scroll-with-animation="true">
 <view class="temName">
 <input type="text" placeholder="模板名称" value="{{name}}" bindinput="saveName"/>
 </view>
@@ -15,5 +15,5 @@
   </view>
 </view>
 <template is="loading" wx:if="{{isEmpty}}" data="{{message, title}}"></template>
-</view>
+</scroll-view>
 
