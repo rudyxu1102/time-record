@@ -255,7 +255,11 @@ Page({
   twoStar: function (e) {
     var index = e.target.dataset.index;
     var list = this.data.list;
-    list[index].stars = 2;
+    if (list[index].stars == 2) {
+      list[index].stars = 1;
+    } else {
+      list[index].stars = 2;
+    }
     this.setData({
       list: list
     })
@@ -263,7 +267,11 @@ Page({
   threeStar: function (e) {
     var index = e.target.dataset.index;
     var list = this.data.list;
-    list[index].stars = 3;
+    if (list[index].stars == 3) {
+      list[index].stars = 2;
+    } else {
+      list[index].stars = 3;
+    }
     this.setData({
       list: list
     })

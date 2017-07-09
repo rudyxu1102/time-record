@@ -1,8 +1,0 @@
-<!--pages/components/canvas/canvas.wxml-->
-<view class="container">
-  <view class="title">今天的时间统计</view>
-  <view class="realdate">2017-07-08</view>
-  <!--<scroll-view scroll-x="true" class="scrollCanvas" scroll-left="{{scrollLeft}}" bindscroll="scroll">-->
-  <canvas class="canvas-element" canvas-id="timeData" style="width:{{width}}px; {{leftStyle}}" bindtouchstart="touchS" bindtouchmove="touchM"/>
-  <!--</scroll-view>-->
-</view>

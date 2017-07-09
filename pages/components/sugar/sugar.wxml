@@ -20,7 +20,7 @@
   <view class="sugar" data-index="{{index}}">
     <image src="../../../image/present.png" class="present"></image>
     <view class="something">
-      <text>奖励物品：</text><input type="text" placeholder="{{item.nameHolder}}" bindinput="saveSugar" data-index="{{index}}" data-key="name" bindfocus="hideDelBtn" value="{{item.name}}"/>
+      <text>奖励物品：</text><input type="text" placeholder="{{item.nameHolder}}" bindinput="saveSugar" data-index="{{index}}" data-key="name" bindfocus="hideDelBtn" value="{{item.name}}" maxlength="6"/>
     </view>
     <view class="day">
       <text>连续天数：</text><input type="number" placeholder="{{item.daysHolder}}" bindinput="saveSugar" data-index="{{index}}" data-key="days" bindfocus="hideDelBtn" value="{{item.days}}"/>

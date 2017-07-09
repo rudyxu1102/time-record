@@ -7,7 +7,7 @@
     "pages/components/introduce/introduce",
     "pages/components/rank/rank",
     "pages/components/sugar/sugar",
-    "pages/components/canvas/canvas"
+    "pages/components/alldata/alldata"
   ],
   "window":{
     "backgroundTextStyle":"light",

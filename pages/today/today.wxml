@@ -11,7 +11,7 @@
   </view>
   <view class="btnBox">
     <button class="confirm" hover-class="confirm-hover" bindtap="compareData"><text>比较评分</text></button>
-    <button class="confirm" hover-class="confirm-hover" bindtap="createImage"><text>生成图表</text></button>
+    <button class="confirm" hover-class="confirm-hover" bindtap="collectData"><text>数据统计</text></button>
     </view>
   </block>
   <view class="noList" wx:if="{{!todayList.length}}">还未安排时间</view>

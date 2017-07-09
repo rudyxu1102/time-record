@@ -7,6 +7,14 @@ function formatTime(date, count) {
   return [year, month, day].map(formatNumber).join('-') 
 }
 
+// -年-月
+function yearMonth(date) {
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1 
+  var time = year + '年' + month + '月'
+  return time
+}
+
 function formatNumber(n) {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -83,11 +91,17 @@ function debounce(func, wait) {
   }
 }
 
+function isInteger(obj) {
+  return obj % 1 === 0
+}
+
 module.exports = {
   formatTime: formatTime,
   newTime: newTime,
   debounce: debounce,
   deltaTime: deltaTime,
   percentMin: percentMin,
-  compareTime: compareTime
+  compareTime: compareTime,
+  isInteger: isInteger,
+  yearMonth: yearMonth
 }

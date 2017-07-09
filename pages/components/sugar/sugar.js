@@ -13,7 +13,7 @@ Page({
         name: '',
         days: '',
         point: '',
-        nameHolder: '棒棒糖',
+        nameHolder: '看一部电影',
         daysHolder: '3',
         pointHolder: '0~100',
         leftHide: 'left: 0rpx'

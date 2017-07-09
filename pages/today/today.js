@@ -337,7 +337,11 @@ Page({
   twoStar: function (e) {
     var index = e.target.dataset.index;
     var todayList = this.data.todayList;
-    todayList[index].stars = 2;
+    if (todayList[index].stars == 2) {
+      todayList[index].stars = 1;
+    } else {
+      todayList[index].stars = 2;
+    }   
     this.setData({
       todayList: todayList
     })
@@ -349,7 +353,11 @@ Page({
   threeStar: function (e) {
     var index = e.target.dataset.index;
     var todayList = this.data.todayList;
-    todayList[index].stars = 3;
+    if (todayList[index].stars == 3) {
+      todayList[index].stars = 2;
+    } else {
+      todayList[index].stars = 3;
+    }  
     this.setData({
       todayList: todayList
     })
@@ -441,7 +449,8 @@ Page({
               break
             }
           }
-          if (insistDays >= item.days && getFlag) {
+          var repeatflag = util.isInteger(insistDays / item.days);
+          if (repeatflag && getFlag) {
             award = award + item.name + '✨'
           }
         })
@@ -469,7 +478,7 @@ Page({
       })
     }
   },
-  createImage: function () {
+  collectData: function () {
     var data = this.data.todayList;
     var isEmpty = data.some(function (item) {
       return item.value == ''
@@ -480,7 +489,7 @@ Page({
         data: data,
       })
       wx.navigateTo({
-        url: '../components/canvas/canvas',
+        url: '../components/alldata/alldata',
       })
     } else {
       this.setData({

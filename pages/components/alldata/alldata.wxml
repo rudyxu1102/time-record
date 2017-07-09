@@ -1,0 +1,21 @@
+<!--pages/components/alldata/alldata.wxml-->
+<view class="container">
+  <view class="total">
+    <image src="{{userInfo.avatarUrl}}" class="userinfo-avatar"></image>
+    <text class="nickName">{{userInfo.nickName}}</text>
+    <text>坚持天数: {{keepDays_length}}</text>
+    <text>累计天数: {{logs_length}}</text>
+  </view>
+  <view class="calendar">
+    <view class="title">{{date}}</view>
+    <view class="weekdays">
+     <text>一</text>
+     <text>二</text>
+     <text>三</text>
+     <text>四</text>
+     <text>五</text>
+     <text>六</text>
+     <text>日</text>
+    </view>
+  </view>
+</view>
