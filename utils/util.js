@@ -7,12 +7,22 @@ function formatTime(date, count) {
   return [year, month, day].map(formatNumber).join('-') 
 }
 
-// -年-月
-function yearMonth(date) {
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1 
-  var time = year + '年' + month + '月'
-  return time
+
+function dayMoment(date) {
+ var hours = date.getHours();
+ if (hours < 6) {
+   return '凌晨'
+ } else if (hours >= 6 && hours < 12) {
+    return '早上'
+ } else if (hours == 12) {
+   return '中午'
+ } else if (hours > 12 && hours <= 17) {
+   return '下午'
+ } else if (hours > 17 && hours <= 18) {
+   return '傍晚'
+ } else {
+   return '晚上'
+ }
 }
 
 function formatNumber(n) {
@@ -95,6 +105,72 @@ function isInteger(obj) {
   return obj % 1 === 0
 }
 
+function starColor (point) {
+  if (point <= 50) {
+    return '#acebb9'
+  } else if (point <= 75) {
+    return '#83e196'
+  } else if (point <= 85) {
+    return '#30ce50'
+  } else {
+    return '#26a540'
+  }
+}
+
+function makeCalendar(days, firstDay, logs) {
+  var arr = [];
+  var firstWeek = [];
+  var first = 0;
+  var date = new Date();
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  for(var i=0; i < 7; i++) {
+    if (i < firstDay) {
+      var obj = {};
+      obj['day'] = ''
+      obj['color'] = ''
+      firstWeek.push(obj);
+    } else {
+      var obj = {};
+      var key = '';
+      first = first + 1;
+      key = year + '-' + formatNumber(month) + '-' + formatNumber(first);
+      obj['day'] = first;
+      if (logs.hasOwnProperty(key)) {
+        var color = starColor(logs[key]);
+        obj['color'] = color;
+      }
+      firstWeek.push(obj);
+    }
+  }
+  arr.push(firstWeek);
+  let leftWeeks = Math.ceil((days - first) / 7);
+  for (var j = 0; j < leftWeeks; j++) {
+    var item = [];
+    for (var k=0; k < 7; k++) {
+      if (first < days) {
+        var key = '';
+        var obj = {};
+        first = first + 1;
+        key = year + '-' + formatNumber(month) + '-'  + formatNumber(first);
+        obj['day'] = first;
+        if (logs.hasOwnProperty(key)) {
+          var color = starColor(logs[key]);
+          obj['color'] = color;
+        }
+        item.push(obj);
+      } else {
+        var obj = {};
+        obj['day'] = '';
+        obj['color'] = '';
+        item.push(obj);
+      }
+    }
+    arr.push(item);
+  }
+  return arr
+}
+
 module.exports = {
   formatTime: formatTime,
   newTime: newTime,
@@ -103,5 +179,6 @@ module.exports = {
   percentMin: percentMin,
   compareTime: compareTime,
   isInteger: isInteger,
-  yearMonth: yearMonth
+  dayMoment: dayMoment,
+  makeCalendar: makeCalendar
 }

@@ -28,21 +28,42 @@ Page({
           keepDays: res.data,
           keepDays_length: length
         })
-      }
-    })
-    wx.getStorage({
-      key: 'logs',
-      success: function(res) {
-        var length = Object.keys(res.data).length;
+      },
+      fail: function () {
         that.setData({
-          logs: res.data,
-          logs_length: length
+          keepDays_length: 0
         })
       }
     })
-    var date = util.yearMonth(new Date())
+    var logs = wx.getStorageSync('logs')
+    if (logs) {
+      let length = Object.keys(logs).length;
+      this.setData({
+        logs: logs,
+        logs_length: length
+      })
+    } else {
+      this.setData({
+        logs_length: 0
+      })
+    }
+    console.log(logs)
+    var date = new Date()
+    var moment = util.dayMoment(date);
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    var today = date.getDate();
+    var firstDay = new Date(year, month-1, 1);
+    var weekday = firstDay.getDay();
+    console.log(weekday);
+    var monthDays = util.formatTime(new Date(year, month, 1), -1).slice(-2)
+    var calendar = util.makeCalendar(monthDays, weekday, logs);
     this.setData({
-      date: date
+      yearMonth: year + '年' + month + '月' + today + '日',
+      moment: moment,
+      monthDays: monthDays,
+      calendar: calendar,
+      today: today
     })
   },
 

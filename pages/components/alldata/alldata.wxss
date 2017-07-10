@@ -1,18 +1,81 @@
 /* pages/components/alldata/alldata.wxss */
+@font-face {font-family: "iconfont";
+  src: url('//at.alicdn.com/t/font_q0iyy35woi2xd2t9.eot?t=1499655869152'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_q0iyy35woi2xd2t9.eot?t=1499655869152#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_q0iyy35woi2xd2t9.woff?t=1499655869152') format('woff'), /* chrome, firefox */
+  url('//at.alicdn.com/t/font_q0iyy35woi2xd2t9.ttf?t=1499655869152') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_q0iyy35woi2xd2t9.svg?t=1499655869152#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-xing:before { content: "\e617"; }
+
 .container{
   height: 100%;
   background: #D3DCE6;
-  padding-top: 100rpx;
+}
+.title {
+  height: 50rpx;
+  background: #90CFF0;  
 }
 .total {
-  height: 300rpx;
-  border: 1px solid #ccc;
   background: #EFF2F7;
+  position: relative;
+  padding: 20rpx 0 20rpx 190rpx;
 }
 .userinfo-avatar {
   width: 128rpx;
   height: 128rpx;
   border-radius: 50%;
-  margin-left: 30rpx;
-  margin-top: -20rpx;
+  border: 2px solid #EFF2F7;
+  position: absolute;
+  top: -48rpx;
+  left: 30rpx;
+}
+.sumDays {
+  /*text-align: right;*/
+  color: #ccc;
+  font-size: 30rpx;
+}
+.calendar {
+  background: #EFF2F7;
+  margin: 30rpx 20rpx 0;
+  padding: 20rpx 30rpx;
+}
+.date {
+  position: relative;
+  border-bottom: 1px solid #D3DCE6;
+  padding-bottom: 10rpx;
+}
+.icon {
+  position: absolute;
+  right: 10rpx;
+  top: -10rpx;
+}
+.icon icon {
+  font-size: 50rpx;
+}
+.weekdays {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.weekdays view {
+  width: 60rpx;
+  text-align: center;
+  display: inline-block;
+  height:45rpx;
+  line-height: 45rpx;
+  box-sizing: border-box;
+}
+.star {
+  font-size: 45rpx;
+  margin-top: -14rpx;
 }
