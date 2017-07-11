@@ -19,22 +19,7 @@ Page({
         userInfo: app.globalData.userInfo
       })
     }
-    var that = this;
-    wx.getStorage({
-      key: 'keepDays',
-      success: function(res) {
-        var length = Object.keys(res.data).length;
-        that.setData({
-          keepDays: res.data,
-          keepDays_length: length
-        })
-      },
-      fail: function () {
-        that.setData({
-          keepDays_length: 0
-        })
-      }
-    })
+    
     var logs = wx.getStorageSync('logs')
     if (logs) {
       let length = Object.keys(logs).length;
@@ -47,7 +32,6 @@ Page({
         logs_length: 0
       })
     }
-    console.log(logs)
     var date = new Date()
     var moment = util.dayMoment(date);
     var month = date.getMonth() + 1;
@@ -71,7 +55,48 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    var today = util.formatTime(new Date(), 0);
+    var keepDays = wx.getStorageSync('keepDays') || [];
+    var keepDays_length = Object.keys(keepDays).length;
+    var sugars = wx.getStorageSync('sugars');
+    if (sugars) {
+      var progress = sugars.map(function (item) {
+        var obj = {};
+        obj['name'] = item.name;
+        if (item.sugarDays) {
+          var leftDays = item.sugarDays % item.days;
+          var times = Math.floor(item.sugarDays / item.days);
+          var percent = (leftDays / item.days).toFixed(2) * 100 || 100
+          obj['percent'] = percent
+        } else if (item.sugarDays == 0) {
+          obj['percent'] = 0
+        }
+        var arr = ['#D3DCE6'];
+        for (var i=0; i < times; i++) {
+          arr.unshift(item.color)
+        }
+        if (percent == 100 && !keepDays.hasOwnProperty(today)) {
+          obj['percent'] = 0;
+          arr.push('#D3DCE6');
+        }
+        if (percent == 100) {
+          arr.pop();
+        } else if (arr[arr.length-1] == item.color) {
+          arr.push('#D3DCE6')
+        } 
+        obj['icon'] = arr;
+        obj['color'] = item.color;
+        return obj
+      })
+      console.log(progress)
+      this.setData({
+        progress: progress
+      })
+    }
+    this.setData({
+      keepDays: keepDays,
+      keepDays_length: keepDays_length
+    })
   },
 
   /**

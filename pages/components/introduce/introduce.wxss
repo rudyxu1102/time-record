@@ -3,7 +3,7 @@
   padding: 30rpx;
 }
 .title {
-  border-bottom: 1px solid #E6E7E7;
+  border-bottom: 1px solid #EFF2f7;
   padding-bottom: 10rpx;
   margin-bottom: 30rpx;
 }

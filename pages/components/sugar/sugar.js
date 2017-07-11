@@ -16,7 +16,8 @@ Page({
         nameHolder: '看一部电影',
         daysHolder: '3',
         pointHolder: '0~100',
-        leftHide: 'left: 0rpx'
+        leftHide: 'left: 0rpx',
+        color: util.getRandColor(5)
       }
     ]
   },
@@ -93,7 +94,8 @@ Page({
       days: '',
       point: '',
       leftHide: 'left: 0rpx',
-      display: 'display: block'
+      display: 'display: block',
+      color: util.getRandColor(5)
     }
     if (this.data.sugars.length === 1) {
       item.level = '中级'

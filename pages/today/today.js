@@ -176,25 +176,31 @@ Page({
       //手指移动时水平方向位置
       var moveX = e.touches[0].clientX;
       //手指起始点位置与移动期间的差值
-      var disX = this.data.startX - moveX + 20;
+      var disX = this.data.startX - moveX;
       var btnWidth = this.data.btnWidth;
       var leftStyle = "";
+      var rightStyle = '';
       if (disX == 0 || disX < 0) {//如果移动距离小于等于0，文本层位置不变
         leftStyle = "left:20rpx";
+        rightStyle = "right: -310rpx;"
       } else if (disX > 0) {//移动距离大于0，文本层left值等于手指移动距离
         leftStyle = "left:-" + disX + "rpx";
+        var right = btnWidth - disX;
+        rightStyle = "right: -" + right + 'rpx'
         if (disX >= btnWidth) {
           //控制手指移动距离最大值为删除按钮的宽度
           leftStyle = "left:-" + btnWidth + "rpx";
+          rightStyle = "right: 0";
         }
       }
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
-      var todayList = this.data.todayList;
-      todayList[index].leftStyle = leftStyle;
+      var list = this.data.todayList;
+      list[index].leftStyle = leftStyle;
+      list[index].rightStyle = rightStyle;
       // //更新列表的状态
       this.setData({
-        todayList: todayList
+        todayList: list
       });
     }
   },
@@ -207,16 +213,18 @@ Page({
       var btnWidth = this.data.btnWidth;
       //如果距离小于删除按钮的1/2，不显示删除按钮
       var leftStyle = disX > btnWidth / 5 ? "left:-" + btnWidth + "rpx" : "left:20rpx";
+      var rightStyle = disX > btnWidth / 5 ? "right: 0" : "right: -310rpx"
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
-      var todayList = this.data.todayList;
-      todayList[index].leftStyle = leftStyle;
+      var list = this.data.todayList;
+      list[index].leftStyle = leftStyle;
+      list[index].rightStyle = rightStyle
       //更新列表的状态
       this.setData({
-        todayList: todayList
+        todayList: list
       });
     }
-  },
+  },  
   bindTimeChange: function (e) {
     var timeStart, timeEnd, isSure;
     var that = this;
@@ -258,6 +266,7 @@ Page({
     var index = e.target.dataset.index;
     var todayList = this.data.todayList
     todayList[index].leftStyle = "left: 20rpx";  // 返回原来的位置
+    todayList[index].rightStyle = "right: -310rpx"; // 返回原来的位置
     var timeStart = todayList[index].timeStart;
     var timeEnd = todayList[index].timeEnd;
     var newStart = util.newTime(timeStart);
@@ -267,6 +276,7 @@ Page({
       "timeEnd": newEnd,
       "placeholder": "开启新的一天",
       "leftStyle": 'left: 20rpx',
+      "rightStyle": 'right: -310rpx',
       "value": '',
       "stars": 0
     }
@@ -439,18 +449,24 @@ Page({
       var sugars = this.data.sugars;
       if (sugars) {
         var award = '';
-        var insistDays = Object.keys(keepDays).length;
         sugars.forEach(function (item) {
           var targetPoint = item.point - 0;
-          var getFlag = true;
+          var i = 0;
+          var sugarDays = 0;    // 达到要求分数的连续天数
           for (var prop in keepDays) {
-            if (keepDays[prop] < targetPoint) {
-              getFlag = false;
+            var date = util.formatTime(new Date(), i)
+            if (keepDays[date] && keepDays[date] >= targetPoint) {
+              sugarDays++;
+            } else if (!keepDays[date]) {
+              i--
+            } else {
               break
             }
+            i--;
           }
-          var repeatflag = util.isInteger(insistDays / item.days);
-          if (repeatflag && getFlag) {
+          item['sugarDays'] = sugarDays;
+          var repeatflag = util.isInteger(sugarDays / item.days);
+          if (repeatflag && sugarDays >= item.days) {
             award = award + item.name + '✨'
           }
         })
@@ -466,6 +482,13 @@ Page({
           }, 1500)
         }
       }
+      console.log(sugars)
+      console.log(keepDays)
+      console.log(logs)
+      wx.setStorage({
+        key: 'sugars',
+        data: sugars,
+      })
       wx.setStorage({
         key: 'logs',
         data: logs,

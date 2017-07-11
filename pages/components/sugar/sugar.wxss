@@ -1,14 +1,14 @@
 /* pages/components/sugar/sugar.wxss */
 .container {
   min-height: 100%;
-  background: #F9F9FB;
+  /*background: #F9F9FB;*/
   position: relative;
 }
 .sugar {
-  background: #fff;
+  background: #EFF2F7;
   margin: 30rpx;
   padding: 20rpx 0 20rpx 200rpx;
-  border: 2px solid #E6E7E7;
+  border: 2px solid #EFF2F7;
   border-radius: 10rpx;
   position: relative;
 }
@@ -98,7 +98,7 @@
   z-index: 4;
 }
 .inner {
-  background: #fff;
+  background: #EFF2F7;
   position: absolute;
   top: 0;
   width: 100%;

@@ -31,7 +31,7 @@
     <image src="{{item.stars >= 2 ? starHlUrl : starUrl}}" class="star_second" bindtap="twoStar" data-index="{{index}}"></image>
     <image src="{{item.stars >= 3 ? starHlUrl : starUrl}}" class="star_third" bindtap="threeStar" data-index="{{index}}"></image>
   </view>
-  <view class="right">
+  <view class="right" style="{{item.rightStyle}}">
     <view class="add" bindtap="addRecord" data-index="{{index}}">添加</view>
     <view class="del" bindtap="delRecord" data-index="{{index}}">删除</view>
   </view>

@@ -21,32 +21,27 @@
 .container {
   height: 100%;
   box-sizing: border-box;
-  background: #F9F9FB;
+  padding: 0 80rpx;
 } 
 
 .option {
   color: #3D3D3D;
   padding: 20rpx 150rpx;
-  background: #fff;
-  border-top: 1px solid #E6E7E7;
-  border-bottom: 1px solid #E6E7E7;
+  background: transparent;
+  border-bottom: 1px solid #EFF2f7;
   font-size: 40rpx;
   transition: 0.5s;
   margin-bottom: 30rpx;
   position: relative;
 }
 
-.option-hover {
-  background: #EBEBEB;
-  transition: 0.5s;
-}
 
 .iconPre {
   width: 60rpx;
   height: 60rpx;
   position: absolute;
   top: 50%;
-  left: 50rpx;
+  left: 30rpx;
   margin-top: -30rpx;
 }
 .right {
@@ -54,6 +49,6 @@
   height: 40rpx;
   position: absolute;
   top: 50%;
-  right: 20rpx;
+  right: 5rpx;
   margin-top: -20rpx;
 }

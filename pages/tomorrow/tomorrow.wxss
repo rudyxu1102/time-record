@@ -19,7 +19,6 @@
     font-size: 45rpx;
 }
 .title text {
-    border-bottom: 4px double #cccccc;
     padding-bottom: 10rpx;
     text-align: center;
     padding: 0 40rpx 10rpx;    
@@ -43,17 +42,15 @@ picker {
 .left {
   position: absolute;
   top: 0;
-  z-index: 5;
   width: 100%;
-  background: #fff;
+  background: transparent;
   height: 100%;
   transition: 0.2s;
 }
 .right {
   position: absolute;
   top: 0;
-  right: 0;
-  z-index: 4;
+  transition: 0.2s;
 }
 .add {
   display: inline-block;

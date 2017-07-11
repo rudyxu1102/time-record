@@ -36,7 +36,20 @@
         <icon class="iconfont icon-xing star" wx:if="{{itemName.color}}" style="color: {{itemName.color}}"/>
         </view>
       </view>
-
+    </view>
+  </view>
+  <view class="sugarStatic">
+    <view class="progress-box" wx:for="{{progress}}">
+      <view class="sugar">
+        <view class="sugarName">{{item.name}}</view>
+        <view class="icon-box">
+          <icon class="iconfont icon-huo fire" wx:for="{{item.icon}}" wx:for-item="child" style="{{'color:'+child}}"/>
+        </view>
+      </view>
+      <progress percent="{{item.percent}}" active stroke-width="5" activeColor="{{item.color}}"/>
+    </view>
+    <view class="noProgress" wx:if="{{!progress.length}}">
+      hello world
     </view>
   </view>
 </view>

@@ -1,10 +1,10 @@
 /* pages/components/alldata/alldata.wxss */
 @font-face {font-family: "iconfont";
-  src: url('//at.alicdn.com/t/font_q0iyy35woi2xd2t9.eot?t=1499655869152'); /* IE9*/
-  src: url('//at.alicdn.com/t/font_q0iyy35woi2xd2t9.eot?t=1499655869152#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('//at.alicdn.com/t/font_q0iyy35woi2xd2t9.woff?t=1499655869152') format('woff'), /* chrome, firefox */
-  url('//at.alicdn.com/t/font_q0iyy35woi2xd2t9.ttf?t=1499655869152') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('//at.alicdn.com/t/font_q0iyy35woi2xd2t9.svg?t=1499655869152#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('//at.alicdn.com/t/font_9khbeos0j2zw7b9.eot?t=1499692516077'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_9khbeos0j2zw7b9.eot?t=1499692516077#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_9khbeos0j2zw7b9.woff?t=1499692516077') format('woff'), /* chrome, firefox */
+  url('//at.alicdn.com/t/font_9khbeos0j2zw7b9.ttf?t=1499692516077') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_9khbeos0j2zw7b9.svg?t=1499692516077#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -15,7 +15,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-huo:before { content: "\e66f"; }
+
 .icon-xing:before { content: "\e617"; }
+
 
 .container{
   height: 100%;
@@ -23,7 +26,7 @@
 }
 .title {
   height: 50rpx;
-  background: #90CFF0;  
+  background: #b8cab0;  
 }
 .total {
   background: #EFF2F7;
@@ -40,7 +43,6 @@
   left: 30rpx;
 }
 .sumDays {
-  /*text-align: right;*/
   color: #ccc;
   font-size: 30rpx;
 }
@@ -78,4 +80,31 @@
 .star {
   font-size: 45rpx;
   margin-top: -14rpx;
+}
+.sugarStatic {
+  margin: 30rpx 20rpx 0;
+  background: #EFF2F7;
+  height: 300rpx;
+  padding: 30rpx;
+}
+.progress-box {
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+progress {
+  width: 97%;
+}
+.fire {
+  font-size: 55rpx;
+}
+.sugarName {
+  display: inline- block;
+}
+.sugar {
+  display: flex;
+  justify-content: space-between;
+}
+.noProgress {
+  text-align: center;
+  color: 9d9d9d;
 }

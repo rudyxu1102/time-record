@@ -18,6 +18,7 @@ Page({
         "timeEnd": "08:00",
         "placeholder": "开启新的一天",
         "leftStyle": 'left: 20rpx',
+        "rightStyle": 'right: -310rpx',
         "value": '',
         "stars": 0
       },
@@ -26,6 +27,7 @@ Page({
         "timeEnd": "09:00",
         "placeholder": "开启新的一天",
         "leftStyle": 'left: 20rpx',
+        "rightStyle": 'right: -310rpx',
         "value": '',
         "stars": 0
       },
@@ -34,6 +36,7 @@ Page({
         "timeEnd": "11:00",
         "placeholder": "开启新的一天",
         "leftStyle": 'left: 20rpx',
+        "rightStyle": 'right: -310rpx',
         "value": '',
         "stars": 0
       },
@@ -42,6 +45,7 @@ Page({
         "timeEnd": "12:00",
         "placeholder": "开启新的一天",
         "leftStyle": 'left: 20rpx',
+        "rightStyle": 'right: -310rpx',
         "value": '',
         "stars": 0
       }
@@ -115,19 +119,27 @@ Page({
       var disX = this.data.startX - moveX;
       var btnWidth = this.data.btnWidth;
       var leftStyle = "";
+      var rightStyle = "";
       if (disX == 0 || disX < 0) {//如果移动距离小于等于0，文本层位置不变
         leftStyle = "left:20rpx";
+        rightStyle = "right: -310rpx;"
       } else if (disX > 0) {//移动距离大于0，文本层left值等于手指移动距离
         leftStyle = "left:-" + disX + "rpx";
+        var right = btnWidth - disX;
+        if (right >= -310) {
+          rightStyle = "right: -" + right + 'rpx'
+        }
         if (disX >= btnWidth) {
           //控制手指移动距离最大值为删除按钮的宽度
           leftStyle = "left:-" + btnWidth + "rpx";
+          rightStyle = "right: 0"
         }
       }
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
       var list = this.data.list;
       list[index].leftStyle = leftStyle;
+      list[index].rightStyle = rightStyle;
       // //更新列表的状态
       this.setData({
         list: list
@@ -139,20 +151,22 @@ Page({
       //手指移动结束后水平位置
       var endX = e.changedTouches[0].clientX;
       //触摸开始与结束，手指移动的距离
-      var disX = this.data.startX - endX;
+      var disX = this.data.startX - endX + 20;
       var btnWidth = this.data.btnWidth;
       //如果距离小于删除按钮的1/2，不显示删除按钮
       var leftStyle = disX > btnWidth / 5 ? "left:-" + btnWidth + "rpx" : "left:20rpx";
+      var rightStyle = disX > btnWidth / 5 ? "right: 0" : "right: -310rpx"
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
       var list = this.data.list;
       list[index].leftStyle = leftStyle;
+      list[index].rightStyle = rightStyle
       //更新列表的状态
       this.setData({
         list: list
       });
     }
-  },
+  },  
   scroll: util.debounce(function (e) {
     this.setData({
       scrollTop: e.detail.scrollTop
@@ -189,6 +203,7 @@ Page({
     var index = e.target.dataset.index;
     var list = this.data.list
     list[index].leftStyle = "left: 20rpx";  // 返回原来的位置
+    list[index].rightStyle = "right: -310rpx"; // 返回原来的位置
     var timeStart = list[index].timeStart;
     var timeEnd = list[index].timeEnd;
     var newStart = util.newTime(timeStart);
@@ -198,6 +213,7 @@ Page({
       "timeEnd": newEnd,
       "placeholder": "开启新的一天",
       "leftStyle": 'left: 20rpx',
+      "rightStyle": 'right: -310rpx',
       "value": ''
     }
     list.splice(index + 1, 0, item);
@@ -280,14 +296,21 @@ Page({
     var name = this.data.name;
     var list = this.data.list;
     var isEmpty = list.some(function (item) {
-        return item.value == '' || name == ''
+        return item.value == ''
     })
     this.setData({
       isEmpty: isEmpty,
-      message: '还没有时间安排没填喔',
+      message: '还有时间安排没填喔',
       title: '提示'
     })
-    if (!isEmpty) {
+    if (name == '') {
+      this.setData({
+        isEmpty: true,
+        message: '模板名称还没填喔',
+        title: '提示'
+      })
+    }
+    if (!isEmpty && name !== '') {
         var temNames = this.data.temNames;
         var length = temNames.length;
         var templates = this.data.templates || [];
@@ -327,8 +350,8 @@ Page({
     }
   },
   backHome: function () {
-    wx.switchTab({
-      url: '../../setting/setting'
+    wx.navigateBack({
+      delta: 1
     })
   },
   outLoading: function () {

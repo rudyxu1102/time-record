@@ -16,6 +16,7 @@ Page({
         "timeEnd": "08:00",
         "placeholder": "开启新的一天",
         "leftStyle": 'left: 20rpx',
+        "rightStyle": 'right: -310rpx',
         "value": '',
         "stars": 0
       },
@@ -24,6 +25,7 @@ Page({
         "timeEnd": "09:00",
         "placeholder": "开启新的一天",
         "leftStyle": 'left: 20rpx',
+        "rightStyle": 'right: -310rpx',
         "value": '',
         "stars": 0
       },
@@ -32,6 +34,7 @@ Page({
         "timeEnd": "11:00",
         "placeholder": "开启新的一天",
         "leftStyle": 'left: 20rpx',
+        "rightStyle": 'right: -310rpx',
         "value": '',
         "stars": 0
       },
@@ -40,6 +43,7 @@ Page({
         "timeEnd": "12:00",
         "placeholder": "开启新的一天",
         "leftStyle": 'left: 20rpx',
+        "rightStyle": 'right: -310rpx',
         "value": '',
         "stars": 0
       },
@@ -48,6 +52,7 @@ Page({
         "timeEnd": "13:00",
         "placeholder": "开启新的一天",
         "leftStyle": 'left: 20rpx',
+        "rightStyle": 'right: -310rpx',
         "value": '',
         "stars": 0
       }
@@ -149,22 +154,28 @@ Page({
       //手指移动时水平方向位置
       var moveX = e.touches[0].clientX;
       //手指起始点位置与移动期间的差值
-      var disX = this.data.startX - moveX + 20;
+      var disX = this.data.startX - moveX ;
       var btnWidth = this.data.btnWidth;
       var leftStyle = "";
+      var rightStyle = '';
       if (disX == 0 || disX < 0) {//如果移动距离小于等于0，文本层位置不变
         leftStyle = "left:20rpx";
+        rightStyle = "right: -310rpx;"
       } else if (disX > 0) {//移动距离大于0，文本层left值等于手指移动距离
         leftStyle = "left:-" + disX + "rpx";
+        var right = btnWidth - disX;
+        rightStyle = "right: -" + right + 'rpx'
         if (disX >= btnWidth) {
           //控制手指移动距离最大值为删除按钮的宽度
           leftStyle = "left:-" + btnWidth + "rpx";
+          rightStyle = "right: 0"
         }
-      }
+      } 
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
       var list = this.data.list;
       list[index].leftStyle = leftStyle;
+      list[index].rightStyle = rightStyle;
       // //更新列表的状态
       this.setData({
         list: list
@@ -180,10 +191,12 @@ Page({
       var btnWidth = this.data.btnWidth;
       //如果距离小于删除按钮的1/2，不显示删除按钮
       var leftStyle = disX > btnWidth / 5 ? "left:-" + btnWidth + "rpx" : "left:20rpx";
+      var rightStyle = disX > btnWidth / 5 ? "right: 0" : "right: -310rpx"
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
       var list = this.data.list;
       list[index].leftStyle = leftStyle;
+      list[index].rightStyle = rightStyle
       //更新列表的状态
       this.setData({
         list: list
@@ -231,6 +244,7 @@ Page({
     var index = e.target.dataset.index;
     var list = this.data.list
     list[index].leftStyle = "left: 20rpx";  // 返回原来的位置
+    list[index].rightStyle = "right: -310rpx"; // 返回原来的位置
     var timeStart = list[index].timeStart;
     var timeEnd = list[index].timeEnd;
     var newStart = util.newTime(timeStart);
@@ -240,6 +254,7 @@ Page({
       "timeEnd": newEnd,
       "placeholder": "开启新的一天",
       "leftStyle": 'left: 20rpx',
+      "rightStyle": 'right: -310rpx',
       "stars": 0,
       "value": ''
     }
