@@ -110,6 +110,7 @@ Page({
         obj['color'] = item.color;
         return obj
       })
+      
       this.setData({
         progress: progress
       })
