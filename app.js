@@ -1,10 +1,29 @@
 //app.js
 App({
   onLaunch: function() {
-    //调用API从本地缓存中获取数据
-    // var logs = wx.getStorageSync('logs') || []
-    // logs.unshift(Date.now())
-    // wx.setStorageSync('logs', logs)
+    var that = this;
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: 'https://time.xuhaodong.cn/api/user',
+            method: 'POST',
+            data: {
+              code: res.code
+            },
+            success: function (res) {
+              that.globalData.openid = res.data.openid
+            },
+            fail: function (err) {
+              console.log(err)
+            }
+          })
+        } else {
+          console.log('获取用户登录态失败！' + res.errMsg)
+        }
+      }
+    });
   },
 
   getUserInfo: function(cb) {

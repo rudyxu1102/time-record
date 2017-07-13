@@ -1,4 +1,5 @@
 // pages/today/today.js
+var app = getApp();
 var util = require('../../utils/util.js');
 Page({
 
@@ -485,6 +486,29 @@ Page({
       console.log(sugars)
       console.log(keepDays)
       console.log(logs)
+      var openid = app.globalData.openid;
+      var name = app.globalData.userInfo.nickName;
+      var avatarUrl = app.globalData.userInfo.avatarUrl;
+      var keepDays_length = Object.keys(keepDays).length;
+      var flag = app.globalData.flag || true
+      wx.request({
+        url: 'https://time.xuhaodong.cn/api/info',
+        method: 'POST',
+        data: {
+          name: name,
+          openid: openid,
+          avatarUrl: avatarUrl,
+          keepDays: keepDays_length,
+          logs: logs,
+          rank: flag
+        },
+        success: function (res) {
+          console.log(res)
+        },
+        fail: function (err) {
+          console.log(err)
+        }
+      })
       wx.setStorage({
         key: 'sugars',
         data: sugars,
