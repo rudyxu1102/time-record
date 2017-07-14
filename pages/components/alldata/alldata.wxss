@@ -108,7 +108,9 @@ progress {
 }
 .noProgress {
   text-align: center;
-  color: 9d9d9d;
+  color: #9d9d9d;
+  padding: 90rpx;
+  height: 100%;
 }
 
 .icon-hide {

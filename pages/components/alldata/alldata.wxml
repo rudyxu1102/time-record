@@ -48,8 +48,8 @@
       </view>
        <progress percent="{{item.percent}}" active stroke-width="5" activeColor="{{item.color}}"/> 
     </view>
-    <view class="noProgress" wx:if="{{!progress.length}}">
-      hello world
+    <view class="noProgress" wx:if="{{!sugars.length}}">
+      还未设置奖励
     </view>
   </view>
 </view>

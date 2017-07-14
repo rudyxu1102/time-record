@@ -1,2 +1,18 @@
 <!--pages/components/rank/rank.wxml-->
-<text>hello rank</text>
+<view class="container">
+  <view class="title">排行榜</view>
+  <view class="rank" wx:for="{{infos}}">
+    <view class="order">{{index + 1}}</view>
+    <image src="{{item.avatarUrl}}" class="head"></image>
+    <view class="data">
+      <view class="name">{{item.name}}</view>
+      <view class="point">
+        <view>累计天数：{{item.logDays}}，最多连续天数：{{item.keepDays}}</view>
+        <view>平均得分：{{item.point}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="outBtn" bindtap="outRank">
+    {{text}}排行榜
+  </view>
+</view>

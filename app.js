@@ -24,6 +24,9 @@ App({
         }
       }
     });
+    this.globalData.rank = true
+    console.log(this.globalData)
+    
   },
 
   getUserInfo: function(cb) {
@@ -41,6 +44,7 @@ App({
       })
     }
   },
+
 
   globalData: {
     userInfo: null

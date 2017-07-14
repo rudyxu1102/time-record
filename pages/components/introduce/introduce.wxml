@@ -2,7 +2,7 @@
 <view class="container">
 <view class="info">
   <view class="title">1. 安排明天的计划</view>
-  <text class="content">在"明天"界面中，安排一天的时间规划，左滑可以添加或删除时间安排，时间范围可自行设定。</text>
+  <text class="content">在"明天"界面中，安排一天的时间规划，左滑可以添加或删除时间安排，时间范围可自行设定。确认计划后将同步到"今天"，方便记录今天的时间</text>
 </view>
 <view class="info">
   <view class="title">2. 重要程度评级</view>
@@ -10,7 +10,11 @@
 </view>
 <view class="info">
   <view class="title">3. 记录今天的时间</view>
-  <text class="content">在"今天"界面中，需要手动进行时间记录，不必在规定的时间进行记录。"明天"界面中点击“确定计划”后，时间安排会同步到“今天”，以方便记录今天的时间。</text>
+  <text class="content">在"今天"界面中，需要手动进行时间记录，可以不必在规定的时间进行记录，暂时还没有提醒功能。</text>
+</view>
+<view class="info">
+  <view class="title">4. 关于隐私</view>
+  <text class="content">明确声明用户所有的时间安排都只存储在本地，只有用户自己可以看到，公开的信息只有分数和累计天数。</text>
 </view>
 <view class="footer" >
   <image src="../../../image/home.png" class="home"></image>

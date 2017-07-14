@@ -1,1 +1,48 @@
 /* pages/components/rank/rank.wxss */
+.container {
+  /* padding: 0 20rpx; */
+}
+.title {
+  text-align: center;
+  font-size: 40rpx;
+  padding: 15rpx 0;
+  width: 27%;
+  margin: 0 auto 17rpx;
+  border-bottom: 4px double #fff;
+}
+.rank {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1px solid #ccc;
+}
+.order {
+  text-align: center;
+  padding: 40rpx;
+}
+.head {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 40rpx;
+}
+.data {
+  font-size: 30rpx;
+}
+.name {
+  font-size: 37rpx;
+}
+.point {
+  font-size: 26rpx;
+  color: #8492a6;
+}
+.outBtn {
+  width: 80%;
+  background: #90CFF0;
+  color: #fff;
+  padding: 20rpx;
+  text-align: center;
+  border-radius: 20rpx;
+  margin: 30rpx auto;
+}

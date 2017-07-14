@@ -302,9 +302,7 @@ Page({
     var index = e.target.dataset.index;
     var todayList = this.data.todayList;
     todayList.splice(index, 1);
-    this.setData({
-      todayList: todayList
-    })
+
     wx.setStorage({
       key: 'today',
       data: todayList,
@@ -313,11 +311,13 @@ Page({
     if (todayList.length < 6) {
       this.setData({
         scrollFlag: false,
-        scrollTop: 0
+        scrollTop: 0,
+        todayList: todayList
       })
     } else {
       this.setData({
-        scrollFlag: true
+        scrollFlag: true,
+        todayList: todayList
       })
     }
   },
@@ -483,14 +483,11 @@ Page({
           }, 1500)
         }
       }
-      console.log(sugars)
-      console.log(keepDays)
-      console.log(logs)
       var openid = app.globalData.openid;
       var name = app.globalData.userInfo.nickName;
       var avatarUrl = app.globalData.userInfo.avatarUrl;
       var keepDays_length = Object.keys(keepDays).length;
-      var flag = app.globalData.flag || true
+      var flag = app.globalData.rank;
       wx.request({
         url: 'https://time.xuhaodong.cn/api/info',
         method: 'POST',

@@ -20,6 +20,8 @@ Page({
       })
     }
     
+    var sugars = wx.getStorageSync('sugars')
+
     var logs = wx.getStorageSync('logs')
     if (logs) {
       let length = Object.keys(logs).length;
@@ -46,7 +48,8 @@ Page({
       moment: moment,
       monthDays: monthDays,
       calendar: calendar,
-      today: today
+      today: today,
+      sugars: sugars
     })
     var yesteDate = util.formatTime(new Date(), -1);
     var todayDate = util.formatTime(new Date(), 0);
