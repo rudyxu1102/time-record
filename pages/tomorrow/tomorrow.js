@@ -58,6 +58,20 @@ Page({
       }
     ]
   },
+  onShareAppMessage: function () {
+    return {
+      title: '时间都去哪儿了😨',
+      path: 'pages/tomorrow/tomorrow',
+      success: function (res) {
+        // 转发成功
+        console.log(res)
+      },
+      fail: function (res) {
+        // 转发失败
+        console.log(res)
+      }
+    }
+  },
   onLoad: function () {
     var that = this;
     wx.getStorage({
@@ -127,6 +141,7 @@ Page({
       isEmpty: false
     })
   },
+
   scroll: util.debounce(function (e) {
     this.setData({
       scrollTop: e.detail.scrollTop
@@ -137,7 +152,7 @@ Page({
       })
     } else {
       wx.setNavigationBarTitle({
-        title: '时间记录'
+        title: '时间计划表'
       })
     }
   }, 500),

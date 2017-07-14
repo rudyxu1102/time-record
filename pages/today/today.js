@@ -93,7 +93,7 @@ Page({
       })
     } else {
       wx.setNavigationBarTitle({
-        title: '时间记录'
+        title: '时间计划表'
       })
     }
     wx.getStorage({
@@ -148,7 +148,18 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return {
+      title: '时间都去哪儿了😨',
+      path: 'pages/today/today',
+      success: function (res) {
+        // 转发成功
+        console.log(res)
+      },
+      fail: function (res) {
+        // 转发失败
+        console.log(res)
+      }
+    }
   },
   scroll: util.debounce(function (e) {
     this.setData({
@@ -160,7 +171,7 @@ Page({
       })
     } else {
       wx.setNavigationBarTitle({
-        title: '时间记录'
+        title: '时间计划表'
       })
     }
   }, 500),

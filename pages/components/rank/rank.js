@@ -33,7 +33,20 @@ Page({
       }
     })
   },
-
+  onShareAppMessage: function () {
+    return {
+      title: '时间都去哪儿了😨',
+      path: 'pages/components/rank/rank',
+      success: function (res) {
+        // 转发成功
+        console.log(res)
+      },
+      fail: function (res) {
+        // 转发失败
+        console.log(res)
+      }
+    }
+  },
   outRank: function () {
     var that = this;
     var flag = !app.globalData.rank;

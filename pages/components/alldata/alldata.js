@@ -10,6 +10,21 @@ Page({
 
   },
 
+  onShareAppMessage: function () {
+    return {
+      title: '时间都去哪儿了😨',
+      path: 'pages/components/alldata/alldata',
+      success: function (res) {
+        // 转发成功
+        console.log(res)
+      },
+      fail: function (res) {
+        // 转发失败
+        console.log(res)
+      }
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

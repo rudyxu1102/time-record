@@ -12,7 +12,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#b8cab0",
-    "navigationBarTitleText": "时间记录",
+    "navigationBarTitleText": "时间计划表",
     "navigationBarTextStyle":"#fff"
   },
     "tabBar": {
