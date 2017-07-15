@@ -2,7 +2,7 @@
 <view class="container">
 <view class="info">
   <view class="title">1. 安排明天的计划</view>
-  <text class="content">在"明天"界面中，安排一天的时间规划，左滑可以添加或删除时间安排，时间范围可自行设定。确认计划后将同步到"今天"，方便记录今天的时间</text>
+  <text class="content">在"明天"界面中，安排一天的时间规划，左滑可以添加或删除时间安排，时间范围可自行设定。确认计划后将同步到"今天"，方便记录今天的时间。</text>
 </view>
 <view class="info">
   <view class="title">2. 重要程度评级</view>

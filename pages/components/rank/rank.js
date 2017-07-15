@@ -59,7 +59,7 @@ Page({
     }
     wx.showModal({
       title: '提示',
-      content: '将不会在排行榜显示个人信息，是否确认？',
+      content: '是否' + text + '排行榜？',
       confirmColor: '#90CFF0',
       success: function (res) {
         if (res.confirm) {
