@@ -1,4 +1,5 @@
 <!--pages/components/introduce/introduce.wxml-->
+<scroll-view scroll-y class="scroll-box">
 <view class="container">
 <view class="info">
   <view class="title">1. 安排明天的计划</view>
@@ -21,3 +22,4 @@
   <text bindtap="backHome">回到首页</text>
 </view>
 </view>
+</scroll-view>

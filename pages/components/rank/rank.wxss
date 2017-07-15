@@ -1,6 +1,6 @@
 /* pages/components/rank/rank.wxss */
-.container {
-  /* padding: 0 20rpx; */
+.scroll-box {
+  height: 100%;
 }
 .title {
   text-align: center;
