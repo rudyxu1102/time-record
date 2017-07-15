@@ -1,6 +1,6 @@
 /* pages/components/introduce/introduce.wxss */
 .container {
-  padding: 30rpx;
+  padding: 30rpx 30rpx 0;
 }
 .title {
   border-bottom: 1px solid #EFF2f7;

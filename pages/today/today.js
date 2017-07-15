@@ -494,29 +494,36 @@ Page({
           }, 1500)
         }
       }
-      var openid = app.globalData.openid;
+      var openid = app.globalData.openid || wx.getStorageSync('openid');
       var name = app.globalData.userInfo.nickName;
       var avatarUrl = app.globalData.userInfo.avatarUrl;
       var keepDays_length = Object.keys(keepDays).length;
-      var flag = app.globalData.rank;
-      wx.request({
-        url: 'https://time.xuhaodong.cn/api/info',
-        method: 'POST',
-        data: {
-          name: name,
-          openid: openid,
-          avatarUrl: avatarUrl,
-          keepDays: keepDays_length,
-          logs: logs,
-          rank: flag
-        },
-        success: function (res) {
-          console.log(res)
-        },
-        fail: function (err) {
-          console.log(err)
-        }
-      })
+      var flag
+      if (app.globalData.userInfo.city) {
+        flag = app.globalData.rank;        
+      } else {
+        flag = false
+      }
+      if (openid) {
+        wx.request({
+          url: 'https://time.xuhaodong.cn/api/info',
+          method: 'POST',
+          data: {
+            name: name,
+            openid: openid,
+            avatarUrl: avatarUrl,
+            keepDays: keepDays_length,
+            logs: logs,
+            rank: flag
+          },
+          success: function (res) {
+            console.log(res)
+          },
+          fail: function (err) {
+            console.log(err)
+          }
+        })
+      }
       wx.setStorage({
         key: 'sugars',
         data: sugars,
