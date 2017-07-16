@@ -23,14 +23,16 @@
 ![tomorrow](https://segmentfault.com/img/bVQWlF)
 
 #### 记录今天的时间使用
-
+![today](https://segmentfault.com/img/bVQWlQ)
 #### 自定义模板
-
+![template](https://segmentfault.com/img/bVQWl5)
 #### 设置奖励
+![sugar_one](https://segmentfault.com/img/bVQWmd)
 
+![sugar_two](https://segmentfault.com/img/bVQWmf)
 
 #### 数据统计、评分
-
+![data](https://segmentfault.com/img/bVQWmp)
 
 #### 排行榜
-
+![rank](https://segmentfault.com/img/bVQWmt)
