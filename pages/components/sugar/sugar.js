@@ -32,9 +32,11 @@ Page({
     wx.getStorage({
       key: 'sugars',
       success: function(res) {
-        that.setData({
-          sugars: res.data
-        })
+        if (res.data) {
+          that.setData({
+            sugars: res.data
+          })
+        }
       },
     })
   },
