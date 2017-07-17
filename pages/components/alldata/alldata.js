@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+
   },
 
   /**
@@ -39,7 +39,6 @@ Page({
     var today = date.getDate();
     var firstDay = new Date(year, month-1, 1);
     var weekday = firstDay.getDay();
-    console.log(weekday);
     var monthDays = util.formatTime(new Date(year, month, 1), -1).slice(-2)
     var calendar = util.makeCalendar(monthDays, weekday, logs);
     this.setData({
@@ -49,6 +48,14 @@ Page({
       calendar: calendar,
       today: today
     })
+    var yesteDate = util.formatTime(new Date(), -1);
+    var todayDate = util.formatTime(new Date(), 0);
+    if (!logs[yesteDate] && !logs[todayDate]) {
+      wx.setStorage({
+        key: 'keepDays',
+        data: [],
+      })
+    }
   },
 
   /**
@@ -56,28 +63,43 @@ Page({
    */
   onReady: function () {
     var today = util.formatTime(new Date(), 0);
+    var logs = wx.getStorageSync('logs') || {};
     var keepDays = wx.getStorageSync('keepDays') || [];
     var keepDays_length = Object.keys(keepDays).length;
     var sugars = wx.getStorageSync('sugars');
     if (sugars) {
-      var progress = sugars.map(function (item) {
+      var progress = sugars.map(function (item, index, sugars) {
         var obj = {};
         obj['name'] = item.name;
         if (item.sugarDays) {
           var leftDays = item.sugarDays % item.days;
-          var times = Math.floor(item.sugarDays / item.days);
+          var times = item.times;
           var percent = (leftDays / item.days).toFixed(2) * 100 || 100
           obj['percent'] = percent
         } else if (item.sugarDays == 0) {
           obj['percent'] = 0
         }
         var arr = ['#D3DCE6'];
+        if (percent == 100 && item.flag && keepDays.hasOwnProperty(today)) {
+          times++;
+          sugars[index].times = times;
+          sugars[index].flag = false
+        } else if (percent !== 100){
+          sugars[index].flag = true
+        }
+        if (item.days == '1' && percent == 100) {
+          let length = Object.keys(logs).length;
+          times = length
+        }
         for (var i=0; i < times; i++) {
           arr.unshift(item.color)
         }
         if (percent == 100 && !keepDays.hasOwnProperty(today)) {
           obj['percent'] = 0;
           arr.push('#D3DCE6');
+        }
+        if (keepDays_length == 0 && !logs[today]) {
+          obj['percent'] = 0;
         }
         if (percent == 100) {
           arr.pop();
@@ -88,11 +110,15 @@ Page({
         obj['color'] = item.color;
         return obj
       })
-      console.log(progress)
       this.setData({
         progress: progress
       })
+      wx.setStorage({
+        key: 'sugars',
+        data: sugars,
+      })
     }
+
     this.setData({
       keepDays: keepDays,
       keepDays_length: keepDays_length

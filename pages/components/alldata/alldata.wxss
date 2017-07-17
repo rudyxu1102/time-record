@@ -48,7 +48,7 @@
 }
 .calendar {
   background: #EFF2F7;
-  margin: 30rpx 20rpx 0;
+  margin: 30rpx 10px 0;
   padding: 20rpx 30rpx;
 }
 .date {
@@ -82,10 +82,10 @@
   margin-top: -14rpx;
 }
 .sugarStatic {
-  margin: 30rpx 20rpx 0;
+  margin: 30rpx 10px 0;
   background: #EFF2F7;
   height: 300rpx;
-  padding: 30rpx;
+  padding: 13px 10px;
 }
 .progress-box {
   align-items: center;
@@ -103,8 +103,19 @@ progress {
 .sugar {
   display: flex;
   justify-content: space-between;
+  position: relative;
+  overflow: hidden;
 }
 .noProgress {
   text-align: center;
   color: 9d9d9d;
+}
+
+.icon-hide {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55rpx;
+  height: 55rpx;
+  background: #EFF2F7;
 }

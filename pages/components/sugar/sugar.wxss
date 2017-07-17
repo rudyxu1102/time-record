@@ -11,6 +11,7 @@
   border: 2px solid #EFF2F7;
   border-radius: 10rpx;
   position: relative;
+  overflow: hidden;
 }
 .sugar input {
   display: inline-block;

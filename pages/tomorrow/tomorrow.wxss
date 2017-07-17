@@ -54,7 +54,6 @@ picker {
 }
 .add {
   display: inline-block;
-  height: 100%;
   width: 160rpx;
   line-height: 150rpx;
   background: #90CFF0;
@@ -63,9 +62,7 @@ picker {
 }
 .del {
   display: inline-block;
-  height: 100%;
   width: 150rpx;
-  padding-bottom: 100%;
   line-height: 150rpx;
   background: #e7413e;
   color: #fff;

@@ -17,7 +17,9 @@ Page({
         daysHolder: '3',
         pointHolder: '0~100',
         leftHide: 'left: 0rpx',
-        color: util.getRandColor(5)
+        color: util.getRandColor(5),
+        times: 0,
+        flag: true   // 防止times重复增加
       }
     ]
   },
@@ -95,7 +97,8 @@ Page({
       point: '',
       leftHide: 'left: 0rpx',
       display: 'display: block',
-      color: util.getRandColor(5)
+      color: util.getRandColor(5),
+      times: 0
     }
     if (this.data.sugars.length === 1) {
       item.level = '中级'
