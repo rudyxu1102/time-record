@@ -109,8 +109,7 @@ progress {
 .noProgress {
   text-align: center;
   color: #9d9d9d;
-  padding: 90rpx;
-  height: 100%;
+  padding: 90rpx 0 0;
 }
 
 .icon-hide {
@@ -120,4 +119,19 @@ progress {
   width: 55rpx;
   height: 55rpx;
   background: #EFF2F7;
+}
+.footer {
+  font-size: 32rpx;
+  color: #9d9d9d;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 300rpx;
+  left: 50%;
+  margin-left: -150rpx;
+}
+.home {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
 }

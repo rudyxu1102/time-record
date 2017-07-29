@@ -35,6 +35,9 @@ function compareTime (start, end) {
   var endHour = end.slice(0, 1) !== '0' ? end.slice(0, 2) : end.slice(1, 2);
   var startMin = start.slice(3, 4) !== '0' ? start.slice(-2) : start.slice(-1);
   var endMin = end.slice(3, 4) !== '0' ? end.slice(-2) : end.slice(-1);
+  if (endHour == '0') {
+    endHour = 24
+  }
   if (endHour - 0  > startHour - 0) {
     return true
   } else if (endHour == startHour && endMin > startMin){
@@ -44,20 +47,25 @@ function compareTime (start, end) {
   }
 }
 
+// add an hour
 function newTime (s) {
   var first = s.slice(0,1);
+  var min = s.slice(-2)
   if (first === '0') {
     let second = s.slice(1,2) - 0 + 1; // 转化为数字
     var newString;
     if (second === 10) {
-      newString = '10:00'
+      newString = '10:' + min
     } else {
-      newString = '0' + second + ':00';
+      newString = '0' + second + ":"+ min;
     }
     return newString
   } else {
     let time = s.slice(0,2) - 0 + 1;
-    let newTime = time + ':00';
+    if (time == 24) {
+      return '00:'+min
+    }
+    let newTime = time+ ':' + min;
     return newTime
   }
 }
@@ -67,6 +75,9 @@ function deltaTime(start, end) {
   var endHour = end.slice(0, 1) !== '0' ? end.slice(0, 2) : end.slice(1, 2);
   var startMin = start.slice(3, 4) !== '0' ? start.slice(-2) : start.slice(-1);
   var endMin = end.slice(3, 4) !== '0' ? end.slice(-2) : end.slice(-1);
+  if (endHour == '0') {
+    endHour = 24
+  }
   if (startMin > endMin) {
     endHour = endHour - 1;
     endMin = endMin - 0 + 60;

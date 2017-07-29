@@ -1,5 +1,5 @@
 <!--pages/components/template/template.wxml-->
-<scroll-view bindscroll="scroll" class="scrollBox" scroll-y="{{scrollFlag}}" scroll-top="{{scrollTop}}" scroll-with-animation="true">
+<scroll-view bindscroll="scroll" class="scrollBox" scroll-y="{{scrollFlag}}" scroll-top="{{scrollTop}}" scroll-with-animation>
 <view class="temName">
 <input type="text" placeholder="模板名称" value="{{name}}" bindinput="saveName"/>
 </view>

@@ -257,7 +257,7 @@ Page({
     } else {
       this.setData({
         title: '提示',
-        message: '时间范围不合适哦',
+        message: '开始时间不能大于结束时间哦',
         loading: true
       })
       return
@@ -281,7 +281,7 @@ Page({
     todayList[index].rightStyle = "right: -310rpx"; // 返回原来的位置
     var timeStart = todayList[index].timeStart;
     var timeEnd = todayList[index].timeEnd;
-    var newStart = util.newTime(timeStart);
+    var newStart = timeEnd;
     var newEnd = util.newTime(timeEnd);
     let item = {
       "timeStart": newStart,

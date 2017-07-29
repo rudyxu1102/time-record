@@ -52,4 +52,8 @@
       还未设置奖励
     </view>
   </view>
+  <view class="footer" >
+    <image src="../../../image/home.png" class="home"></image>
+  <text bindtap="backHome">回到首页</text>
+  </view>
 </view>

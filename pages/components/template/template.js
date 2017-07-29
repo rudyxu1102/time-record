@@ -171,22 +171,32 @@ Page({
     this.setData({
       scrollTop: e.detail.scrollTop
     })
-    if (e.detail.scrollTop > 50) {
-      wx.setNavigationBarTitle({
-        title: '明天'
-      })
-    } else {
-      wx.setNavigationBarTitle({
-        title: '时间记录'
-      })
-    }
   }, 500),
   bindTimeChange: function (e) {
+    var timeStart, timeEnd, isSure;
     var that = this;
     var array = this.data.list;
     var index = e.target.dataset.index;
-    var order = e.target.dataset.time;  // 开始时间或者结束时间
-    array[index][order] = e.detail.value;
+    var key = e.target.dataset.time;  // 开始时间或者结束时间
+    if (key == 'timeStart') {
+      timeStart = e.detail.value;
+      timeEnd = array[index].timeEnd;
+      isSure = util.compareTime(timeStart, timeEnd)
+    } else {
+      timeEnd = e.detail.value;
+      timeStart = array[index].timeStart;
+      isSure = util.compareTime(timeStart, timeEnd)
+    }
+    if (isSure) {
+      array[index][key] = e.detail.value;
+    } else {
+      this.setData({
+        title: '提示',
+        message: '开始时间不能大于结束时间哦',
+        isEmpty: true
+      })
+      return
+    }
     this.setData({
       list: array
     })
@@ -206,7 +216,7 @@ Page({
     list[index].rightStyle = "right: -310rpx"; // 返回原来的位置
     var timeStart = list[index].timeStart;
     var timeEnd = list[index].timeEnd;
-    var newStart = util.newTime(timeStart);
+    var newStart = timeEnd;
     var newEnd = util.newTime(timeEnd);
     let item = {
       "timeStart": newStart,
